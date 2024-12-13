@@ -22,6 +22,8 @@ export default {
         "theme7": "#cc5500",
         "theme8": "#c95a49",
         "theme9": "#483d8b",
+        "danger": "#DC3545",
+        "success": "#4BB543"
       }
     },
   },
@@ -58,5 +60,14 @@ export default {
     "stroke-theme7",
     "stroke-theme8",
     "stroke-theme9",
-]
+    "bg-theme1",
+    "bg-theme2",
+    "bg-theme3",
+    "bg-theme4",
+    "bg-theme5",
+    "bg-theme6",
+    "bg-theme7",
+    "bg-theme8",
+    "bg-theme9",
+  ]
 }

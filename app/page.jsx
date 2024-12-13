@@ -2,7 +2,8 @@
 import { useEffect, useState } from "react";
 import Loader from "@/components/ui/Loader";
 import initDatabase from "@/db/initDatabase";
-import Classes from "@/components/Classes";
+import Classes from "@/components/homepage/Classes";
+import Layout from "@/components/Layout";
 
 export default function Page(){
     const [isLoading, setIsLoading] = useState(true);
@@ -11,13 +12,13 @@ export default function Page(){
         initDatabase(setIsLoading);
     }, []);
 
-    if (isLoading) {
-        return <Loader />;
-    }
-
     return(
-        <>
-            <Classes />
-        </>
+        <Layout>
+            {isLoading ? 
+                <Loader />
+            :
+                <Classes />
+            }
+        </Layout>
     );
 }
