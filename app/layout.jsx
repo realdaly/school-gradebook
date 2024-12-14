@@ -1,5 +1,6 @@
+import { ThemeProvider } from "@/components/template/ConfigContext";
 import "./globals.css";
-import { Zain } from "next/font/google"
+import { Zain } from "next/font/google";
 
 const zain = Zain({
   weight: ["400", "700"],
@@ -9,8 +10,10 @@ const zain = Zain({
 
 export default function RootLayout({ children }) {
     return (
-      <html lang="ar" dir="rtl" className={zain.className}>
-        <body>{children}</body>
-      </html>
-    )
+      <ThemeProvider>
+        <html lang="ar" dir="rtl" className={zain.className}>
+          <body>{children}</body>
+        </html>
+      </ThemeProvider>
+    );
 }

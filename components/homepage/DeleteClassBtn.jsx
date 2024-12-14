@@ -21,11 +21,13 @@ export default function DeleteClassBtn({currentClass}){
             <TiDelete className="size-7" />
         </button>
         <Modal 
-            title={`هل أنت متأكد من حذف "${currentClass.title}"`}
+            title={`هل أنت متأكد من حذف "${currentClass.title}"؟`}
+            desc="لا يمكن التراجع عن هذه الخطوة!"
             sumbitLabel="حذف"
             isOpen={isOpen}
             setIsOpen={setIsOpen}
             submitFunc={submitFunc}
+            isDanger={true}
         />
     </>
     );

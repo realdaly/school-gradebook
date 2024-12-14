@@ -1,13 +1,12 @@
 import { useState } from "react";
 import Modal from "@/components/ui/Modal";
-import createClass from "@/utils/homepage/createClass";
-import { useTheme } from "@/components/template/ConfigContext";
+import { TbEditCircle } from "react-icons/tb";
+import updateClass from "@/utils/homepage/updateClass";
 
-export default function CreateClassBtn(){
+export default function UpdateClassBtn({currentClass}){
     let [isOpen, setIsOpen] = useState(false);
-    let [className, setClassName] = useState("");
-    let [classTheme, setClassTheme] = useState("theme1");
-    const { accentColor, loading } = useTheme();
+    let [className, setClassName] = useState(currentClass.title);
+    let [classTheme, setClassTheme] = useState(currentClass.theme);
 
     const themes = [
         "theme1",
@@ -23,25 +22,23 @@ export default function CreateClassBtn(){
 
     const submitFunc = () => {
         setIsOpen(false);
-        createClass(className, classTheme);
-        setClassName("");
-        setClassTheme("theme1");
+        updateClass(className, classTheme, currentClass.id);
+        setClassName(prev => prev);
+        setClassTheme(prev => prev);
     }
 
     return(
     <>
-        {!loading &&
-            <button 
-                onClick={() => setIsOpen(true)}
-                className={`text-white font-bold bg-${accentColor} py-1.5 px-2 rounded-full block mx-auto mt-5 transition-all hover:opacity-75`}
-            >
-                إضافة صف +
-            </button>
-
-        }
+        <button 
+            title="تعديل" 
+            onClick={() => setIsOpen(true)}
+            className="px-1 text-zinc-600 transition-all hover:opacity-75"
+        >
+            <TbEditCircle className="size-6" />
+        </button>
         <Modal 
-            title="إضافة صف"
-            sumbitLabel="إضافة"
+            title="تعديل الصف"
+            sumbitLabel="تــــــم"
             isOpen={isOpen}
             setIsOpen={setIsOpen}
             submitFunc={submitFunc}

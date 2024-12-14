@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { TbEditCircle } from "react-icons/tb";
 import DeleteClassBtn from "@/components/homepage/DeleteClassBtn";
+import UpdateClassBtn from "@/components/homepage/UpdateClassBtn";
 
 export default function ClassCard({currentClass}){
     return(
-        <div className="flex w-3/4 border border-opacity-25 max-w-96 h-24 bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+        <div className="flex w-3/4 border border-opacity-25 max-w-96 h-24 bg-white rounded-xl overflow-hidden hover:scale-105 transition-all">
             <Link 
                 href={`/class?clabel=${currentClass.title}`}
                 className="p-4 overflow-hidden w-full self-center"
@@ -17,12 +17,7 @@ export default function ClassCard({currentClass}){
                 </p>
             </Link>
             <div className="flex items-center pl-3">
-                <button
-                    title="تعديل" 
-                    className="px-1 text-accent1 transition-all hover:opacity-75"
-                >
-                    <TbEditCircle className="size-6" />
-                </button>
+                <UpdateClassBtn currentClass={currentClass} />
                 <DeleteClassBtn currentClass={currentClass} />
             </div>
             <svg width="16" xmlns="http://www.w3.org/2000/svg">

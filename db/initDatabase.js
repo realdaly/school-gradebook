@@ -8,7 +8,8 @@ export default async function initDatabase(setIsLoading){
     await db.execute(`
         CREATE TABLE IF NOT EXISTS "config" (
             "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
-            "title" VARCHAR(1000) DEFAULT NULL
+            "title" VARCHAR(1000) DEFAULT NULL,
+            "accentColor" VARCHAR(20) DEFAULT NULL
         );
     `);
 

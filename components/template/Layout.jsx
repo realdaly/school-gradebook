@@ -1,5 +1,5 @@
-import Header from "@/components/Header";
-import Breadcrumb from "@/components/Breadcrumb";
+import Header from "@/components/template/Header";
+import Breadcrumb from "@/components/template/Breadcrumb";
 
 export default function Layout({children, beadcrumb}){
     return(

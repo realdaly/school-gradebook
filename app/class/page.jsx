@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Loader from "@/components/ui/Loader";
-import Layout from "@/components/Layout";
+import Layout from "@/components/template/Layout";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
