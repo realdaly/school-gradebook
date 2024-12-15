@@ -4,18 +4,14 @@ import Loader from "@/components/ui/Loader";
 import Layout from "@/components/template/Layout";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import BreadcrumbBtn from "@/components/template/BreadcrumbBtn";
 
 export default function Page(){
     const [isLoading, setIsLoading] = useState(false);
     const searchParams = useSearchParams();
     const classLabel = searchParams.get("clabel");
     const breadcrumb = (
-        <Link 
-            className="text-white bg-accent1 py-1.5 px-2 rounded-full"
-            href={`#`}
-        >
-            {classLabel}
-        </Link>
+        <BreadcrumbBtn href="#" label={classLabel} />
     );
 
     return(

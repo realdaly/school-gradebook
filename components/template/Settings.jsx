@@ -46,7 +46,7 @@ export default function Settings(){
                 >
                     <input 
                         placeholder="عنوان التطبيق في الترويسة"
-                        className="py-1 px-4 bg-comp rounded-2xl w-72 border-accent1 border"
+                        className="py-1 px-4 bg-comp rounded-2xl w-96 border-accent1 border"
                         onChange={e => setTitle(e.target.value)}
                         name="title"
                         value={title}
