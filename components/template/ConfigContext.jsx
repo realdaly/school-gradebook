@@ -11,7 +11,7 @@ export const ThemeProvider = ({ children }) => {
     const [accentColor, setAccentColor] = useState("accent1");
 
     useEffect(() => {
-        readConfig(title, setTitle, accentColor, setAccentColor);
+        readConfig(setTitle, accentColor, setAccentColor);
         setLoading(false);
     }, []);
 

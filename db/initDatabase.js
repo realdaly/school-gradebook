@@ -13,7 +13,7 @@ export default async function initDatabase(setIsLoading){
         );
     `);
 
-    // Classes Table
+    // Class Table
     await db.execute(`
         CREATE TABLE IF NOT EXISTS "class" (
             "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -22,25 +22,23 @@ export default async function initDatabase(setIsLoading){
         );
     `);
 
-    // Subjects Table
+    // Subject Table
     await db.execute(`
-        CREATE TABLE IF NOT EXISTS "subjects" (
+        CREATE TABLE IF NOT EXISTS "subject" (
             "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-            "name" VARCHAR(255) NOT NULL,
-            "class_id" INTEGER NOT NULL,
-            FOREIGN KEY ("class_id") REFERENCES "classes" ("id") ON DELETE CASCADE
+            "name" VARCHAR(255) NOT NULL
         );
     `);
 
-    // Students Table
+    // Student Table
     await db.execute(`
-        CREATE TABLE IF NOT EXISTS "students" (
+        CREATE TABLE IF NOT EXISTS "student" (
             "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
             "name" VARCHAR(255) NOT NULL,
             "reg_num" VARCHAR(20) DEFAULT NULL,
-            "notes" text DEFAULT NULL,
+            "notes" TEXT DEFAULT NULL,
             "class_id" INTEGER NOT NULL,
-            FOREIGN KEY ("class_id") REFERENCES "classes" ("id") ON DELETE CASCADE
+            FOREIGN KEY ("class_id") REFERENCES "class" ("id") ON DELETE CASCADE
         );
     `);
 
@@ -64,8 +62,8 @@ export default async function initDatabase(setIsLoading){
             "final_mark_after_second_try" REAL GENERATED ALWAYS AS (
                 (COALESCE(average_mark, 0) + COALESCE(second_try_mark, 0)) / 2
             ) VIRTUAL,
-            FOREIGN KEY ("student_id") REFERENCES "students" ("id") ON DELETE CASCADE,
-            FOREIGN KEY ("subject_id") REFERENCES "subjects" ("id") ON DELETE CASCADE
+            FOREIGN KEY ("student_id") REFERENCES "student" ("id") ON DELETE CASCADE,
+            FOREIGN KEY ("subject_id") REFERENCES "subject" ("id") ON DELETE CASCADE
         );
     `);
 

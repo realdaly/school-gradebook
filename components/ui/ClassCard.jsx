@@ -2,11 +2,11 @@ import Link from "next/link";
 import DeleteClassBtn from "@/components/homepage/DeleteClassBtn";
 import UpdateClassBtn from "@/components/homepage/UpdateClassBtn";
 
-export default function ClassCard({currentClass}){
+export default function ClassCard({currentClass, firstSubjectId, fetchClasses}){
     return(
         <div className="flex w-3/4 border border-opacity-25 max-w-96 h-24 bg-white rounded-xl overflow-hidden hover:scale-105 transition-all">
             <Link 
-                href={`/class?clabel=${currentClass.title}`}
+                href={`/class?classlabel=${currentClass.title}&classid=${currentClass.id}&subjectid=${firstSubjectId}`}
                 className="p-4 overflow-hidden w-full self-center"
             >
                 <p className={`text-2xl font-bold text-${currentClass.theme} leading-loose overflow-hidden text-ellipsis whitespace-nowrap`}>
@@ -17,8 +17,14 @@ export default function ClassCard({currentClass}){
                 </p>
             </Link>
             <div className="flex items-center pl-3">
-                <UpdateClassBtn currentClass={currentClass} />
-                <DeleteClassBtn currentClass={currentClass} />
+                <UpdateClassBtn 
+                    currentClass={currentClass} 
+                    fetchClasses={fetchClasses}
+                />
+                <DeleteClassBtn 
+                    currentClass={currentClass} 
+                    fetchClasses={fetchClasses}
+                />
             </div>
             <svg width="16" xmlns="http://www.w3.org/2000/svg">
                 <path

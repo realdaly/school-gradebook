@@ -1,9 +1,10 @@
+"use client";
 import { useState } from "react";
 import Modal from "@/components/ui/Modal";
 import createClass from "@/utils/homepage/createClass";
 import { useTheme } from "@/components/template/ConfigContext";
 
-export default function CreateClassBtn(){
+export default function CreateClassBtn({fetchClasses}){
     let [isOpen, setIsOpen] = useState(false);
     let [className, setClassName] = useState("");
     let [classTheme, setClassTheme] = useState("theme1");
@@ -21,9 +22,10 @@ export default function CreateClassBtn(){
         "theme9",
     ];
 
-    const submitFunc = () => {
+    const submitFunc = async () => {
         setIsOpen(false);
-        createClass(className, classTheme);
+        await createClass(className, classTheme);
+        await fetchClasses();
         setClassName("");
         setClassTheme("theme1");
     }

@@ -5,7 +5,7 @@ export default async function deleteClass(id){
     
     await db.execute(
         "DELETE FROM class WHERE id = $1",
-        [id],
+        [id]
     );
 
 }

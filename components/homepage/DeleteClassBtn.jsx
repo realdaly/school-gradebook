@@ -3,12 +3,13 @@ import Modal from "@/components/ui/Modal";
 import deleteClass from "@/utils/homepage/deleteClass";
 import { TiDelete } from "react-icons/ti";
 
-export default function DeleteClassBtn({currentClass}){
+export default function DeleteClassBtn({currentClass, fetchClasses}){
     let [isOpen, setIsOpen] = useState(false);
 
-    const submitFunc = () => {
+    const submitFunc = async () => {
         setIsOpen(false);
-        deleteClass(currentClass.id);
+        await deleteClass(currentClass.id);
+        await fetchClasses();
     }
 
     return(

@@ -3,7 +3,7 @@ import Modal from "@/components/ui/Modal";
 import { TbEditCircle } from "react-icons/tb";
 import updateClass from "@/utils/homepage/updateClass";
 
-export default function UpdateClassBtn({currentClass}){
+export default function UpdateClassBtn({currentClass, fetchClasses}){
     let [isOpen, setIsOpen] = useState(false);
     let [className, setClassName] = useState(currentClass.title);
     let [classTheme, setClassTheme] = useState(currentClass.theme);
@@ -20,9 +20,10 @@ export default function UpdateClassBtn({currentClass}){
         "theme9",
     ];
 
-    const submitFunc = () => {
+    const submitFunc = async () => {
         setIsOpen(false);
-        updateClass(className, classTheme, currentClass.id);
+        await updateClass(className, classTheme, currentClass.id);
+        await fetchClasses();
         setClassName(prev => prev);
         setClassTheme(prev => prev);
     }

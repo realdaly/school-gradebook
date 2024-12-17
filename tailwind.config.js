@@ -13,6 +13,8 @@ export default {
         "accent2": "#2e77ae",
         "accent3": "#0d2137",
         "accent4": "#d4ac66",
+        "comp": "#D9D9D9",
+        "domI": "#F3F3F3",
         "theme1": "#b0bf1a",
         "theme2": "#ffbf00",
         "theme3": "#318ce7",

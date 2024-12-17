@@ -7,13 +7,13 @@ export default async function readClasses(setData){
             class.id, 
             class.title, 
             class.theme, 
-            COUNT(students.id) AS student_count 
+            COUNT(student.id) AS student_count 
         FROM 
             class
         LEFT JOIN 
-            students 
+            student 
         ON 
-            class.id = students.class_id 
+            class.id = student.class_id 
         GROUP BY 
             class.id
     `);
