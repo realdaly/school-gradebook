@@ -3,6 +3,7 @@ import { useState } from "react";
 import Modal from "@/components/ui/Modal";
 import createClass from "@/utils/homepage/createClass";
 import { useTheme } from "@/components/template/ConfigContext";
+import Button from "../ui/Button";
 
 export default function CreateClassBtn({fetchClasses}){
     let [isOpen, setIsOpen] = useState(false);
@@ -33,13 +34,11 @@ export default function CreateClassBtn({fetchClasses}){
     return(
     <>
         {!loading &&
-            <button 
-                onClick={() => setIsOpen(true)}
-                className={`text-white font-bold bg-${accentColor} py-1.5 px-2 rounded-full block mx-auto mt-5 transition-all hover:opacity-75`}
-            >
-                إضافة صف +
-            </button>
-
+            <Button 
+                label="إضافة صف +"
+                title="انقر لإضافة صف جديد"
+                setFunc={setIsOpen}
+            />
         }
         <Modal 
             title="إضافة صف"

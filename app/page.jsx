@@ -1,7 +1,6 @@
 "use client";
 import Classes from "@/components/homepage/Classes";
 import CreateClassBtn from "@/components/homepage/CreateClassBtn";
-import Subjects from "@/components/homepage/Subjects";
 import Layout from "@/components/template/Layout";
 import readClasses from "@/utils/homepage/readClasses";
 import { useEffect, useState } from "react";
@@ -25,7 +24,6 @@ export default function Page(){
                 firstSubjectId={firstSubjectId}
                 fetchClasses={fetchClasses}
             />
-            <Subjects setFirstSubjectId={setFirstSubjectId} />
             <CreateClassBtn fetchClasses={fetchClasses} />
         </Layout>
     );

@@ -3,13 +3,18 @@ import { useEffect, useState } from "react";
 import Header from "@/components/template/Header";
 import initDatabase from "@/db/initDatabase";
 import Breadcrumb from "@/components/template/Breadcrumb";
-import Loader from "@/components/ui/Loader";
 
 export default function Layout({children, beadcrumb}){
     const [isLoading, setIsLoading] = useState(true);
 
+    async function createDatabaseTables(){
+        await initDatabase(setIsLoading);
+        setIsLoading(false);
+
+    }
+
     useEffect(() => {
-        initDatabase(setIsLoading);
+        createDatabaseTables();
     }, []);
 
     return(

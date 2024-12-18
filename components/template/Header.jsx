@@ -8,7 +8,7 @@ export default function Header(){
         <>
             {!loading &&
                 <div className={`h-14 w-full flex items-center justify-center relative px-5 space-x-10 bg-${accentColor} text-white`}>
-                    <h1 className="text-xl font-bold">
+                    <h1 className="text-2xl font-bold">
                         {title}
                     </h1>
                     <Settings />

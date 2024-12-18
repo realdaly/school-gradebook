@@ -6,7 +6,7 @@ export default function BreadcrumbBtn({href, label}){
 
     return(
         <Link 
-            className={`text-white bg-${accentColor} py-1.5 px-2 rounded-full`}
+            className={`text-${accentColor} px-3 rounded-full text-xl transition-all hover:opacity-75`}
             href={href}
         >
             {label}

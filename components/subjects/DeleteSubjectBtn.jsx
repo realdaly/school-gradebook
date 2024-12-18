@@ -1,15 +1,15 @@
 import { useState } from "react";
 import Modal from "@/components/ui/Modal";
-import deleteClass from "@/utils/homepage/deleteClass";
 import { TiDelete } from "react-icons/ti";
+import deleteSubject from "@/utils/subjects/deleteSubject";
 
-export default function DeleteClassBtn({currentClass, fetchClasses}){
+export default function DeleteSubjectBtn({currentSubject, fetchSubjects}){
     let [isOpen, setIsOpen] = useState(false);
 
     const submitFunc = async () => {
         setIsOpen(false);
-        await deleteClass(currentClass.id);
-        await fetchClasses();
+        await deleteSubject(currentSubject.id);
+        await fetchSubjects();
     }
 
     return(
@@ -17,12 +17,12 @@ export default function DeleteClassBtn({currentClass, fetchClasses}){
         <button 
             onClick={() => setIsOpen(true)}
             title="حذف"
-            className="px-1 text-danger transition-all hover:opacity-75"
+            className="px-1 text-danger pt-1 transition-all hover:opacity-75"
         >
-            <TiDelete className="size-8" />
+            <TiDelete className="size-6" />
         </button>
         <Modal 
-            title={`هل أنت متأكد من حذف "${currentClass.title}"؟`}
+            title={`هل أنت متأكد من حذف "${currentSubject.title}"؟`}
             desc="لا يمكن التراجع عن هذه الخطوة!"
             sumbitLabel="حذف"
             isOpen={isOpen}

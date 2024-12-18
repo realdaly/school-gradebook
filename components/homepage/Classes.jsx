@@ -1,5 +1,5 @@
 "use client";
-import ClassCard from "@/components/ui/ClassCard";
+import ClassCard from "@/components/homepage/ClassCard";
 
 export default function Classes({classes, firstSubjectId, fetchClasses}){
 

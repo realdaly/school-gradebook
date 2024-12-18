@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { GoHomeFill } from "react-icons/go";
 import { useTheme } from "@/components/template/ConfigContext";
+import Subjects from "@/components/template/Subjects";
+import Terms from "./Terms";
 
 export default function Breadcrumb({children}){
     const { accentColor, loading } = useTheme();
@@ -8,11 +10,17 @@ export default function Breadcrumb({children}){
     return(
         <>
             {!loading &&
-                <div className="h-10 w-fit rounded-full m-1 mr-1.5 flex gap-x-2 items-center">
-                    <Link href="/">
-                        <GoHomeFill className={`size-9 text-white bg-${accentColor} p-1.5 rounded-full`} />
-                    </Link>
-                    {children}
+                <div className="m-1">
+                    <div className="flex gap-x-1 items-center">
+                        <Link href="/">
+                            <GoHomeFill className={`size-10 text-white bg-${accentColor} p-2 rounded-full transition-all hover:opacity-75`} />
+                        </Link>
+                        <Subjects />
+                        <Terms />
+                    </div>
+                    <div className="flex gap-x-2 items-center pt-1">
+                        {children}
+                    </div>
                 </div>
 
             }

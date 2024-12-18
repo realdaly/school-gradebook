@@ -35,7 +35,7 @@ export default function UpdateClassBtn({currentClass, fetchClasses}){
             onClick={() => setIsOpen(true)}
             className="px-1 text-zinc-600 transition-all hover:opacity-75"
         >
-            <TbEditCircle className="size-6" />
+            <TbEditCircle className="size-7" />
         </button>
         <Modal 
             title="تعديل الصف"
