@@ -40,6 +40,7 @@ export default function Subjects(){
                         <ImBooks className="size-5" />
                     </Button>
                 }
+                menuStyle="rounded-3xl"
             >
                 {subjects.map(subject => (
                     <div 

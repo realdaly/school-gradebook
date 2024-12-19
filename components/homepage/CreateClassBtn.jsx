@@ -3,13 +3,12 @@ import { useState } from "react";
 import Modal from "@/components/ui/Modal";
 import createClass from "@/utils/homepage/createClass";
 import { useTheme } from "@/components/template/ConfigContext";
-import Button from "../ui/Button";
+import Button from "@/components/ui/Button";
 
 export default function CreateClassBtn({fetchClasses}){
     let [isOpen, setIsOpen] = useState(false);
     let [className, setClassName] = useState("");
     let [classTheme, setClassTheme] = useState("theme1");
-    const { accentColor, loading } = useTheme();
 
     const themes = [
         "theme1",
@@ -33,13 +32,11 @@ export default function CreateClassBtn({fetchClasses}){
 
     return(
     <>
-        {!loading &&
-            <Button 
-                label="إضافة صف +"
-                title="انقر لإضافة صف جديد"
-                setFunc={setIsOpen}
-            />
-        }
+        <Button 
+            label="إضافة صف +"
+            title="انقر لإضافة صف جديد"
+            setFunc={setIsOpen}
+        />
         <Modal 
             title="إضافة صف"
             sumbitLabel="إضافة"

@@ -34,7 +34,8 @@ export default async function initDatabase(){
     await db.execute(`
         CREATE TABLE IF NOT EXISTS "term" (
             "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-            "title" VARCHAR(255) NOT NULL
+            "title" VARCHAR(255) NOT NULL, 
+            "mark_ref" VARCHAR(255) NOT NULL 
         );
     `);
 
@@ -54,14 +55,14 @@ export default async function initDatabase(){
     await db.execute(`
         CREATE TABLE IF NOT EXISTS "marks" (
             "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            "class_id" INTEGER NOT NULL,
             "subject_id" INTEGER NOT NULL,
-            "term_id" INTEGER NOT NULL,
             "student_id" INTEGER NOT NULL,
             "first_term_mark" REAL DEFAULT NULL,
             "midterm_mark" REAL DEFAULT NULL,
             "second_term_mark" REAL DEFAULT NULL,
             "average_mark" REAL GENERATED ALWAYS AS (
-                (COALESCE(first_term_mark, 0) + COALESCE(second_term_mark, 0)) / 2
+                (COALESCE(first_term_mark, 0) + COALESCE(midterm_mark, 0) + COALESCE(second_term_mark, 0)) / 3
             ) VIRTUAL,
             "final_exam_mark" REAL DEFAULT NULL,
             "final_mark" REAL GENERATED ALWAYS AS (
@@ -71,8 +72,8 @@ export default async function initDatabase(){
             "final_mark_after_second_try" REAL GENERATED ALWAYS AS (
                 (COALESCE(average_mark, 0) + COALESCE(second_try_mark, 0)) / 2
             ) VIRTUAL,
+            FOREIGN KEY ("class_id") REFERENCES "class" ("id") ON DELETE CASCADE,
             FOREIGN KEY ("subject_id") REFERENCES "subject" ("id") ON DELETE CASCADE,
-            FOREIGN KEY ("term_id") REFERENCES "term" ("id") ON DELETE CASCADE,
             FOREIGN KEY ("student_id") REFERENCES "student" ("id") ON DELETE CASCADE
         );
     `);

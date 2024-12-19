@@ -6,6 +6,7 @@ import Modal from "@/components/ui/Modal";
 import readTerms from "@/utils/terms/readTerms";
 import createTerm from "@/utils/terms/createTerm";
 import TermBtn from "@/components/terms/TermBtn";
+import { defaultTermsArray } from "@/data/defaultTermsArray";
 
 export default function Terms(){
     let [terms, setTerms] = useState([]);
@@ -25,24 +26,12 @@ export default function Terms(){
         setTermTitle("");
     }
 
-    const defaultTermsArray = [
-        "معدل الفصل الأول",
-        "نصف السنة",
-        "معدل الفصل الثاني",
-        "السعي السنوي",
-        "درجة الامتحان النهائي",
-        "الدرجة النهائية",
-        "درجة الدور الثاني",
-        "الدرجة النهائية بعد الإكمال"
-    ];
-
-
     const createDefaultTerms = async () => {
         const fetchedTerms = await readTerms();
         
         if(!fetchedTerms.length > 0){
-            for(const termTitle of defaultTermsArray){
-                await createTerm(termTitle);
+            for(const defaultTerm of defaultTermsArray){
+                await createTerm(defaultTerm.title, defaultTerm.markRef);
             }
             fetchTerms(); //fetch terms again to update the state
         }
@@ -64,6 +53,7 @@ export default function Terms(){
                         <BsFileEarmarkSpreadsheetFill className="size-5" />
                     </Button>
                 }
+                menuStyle="rounded-3xl"
             >
                 {terms.map(term => (
                     <div 

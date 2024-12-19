@@ -4,6 +4,8 @@ import Loader from "@/components/ui/Loader";
 import Layout from "@/components/template/Layout";
 import { useSearchParams } from "next/navigation";
 import BreadcrumbBtn from "@/components/template/BreadcrumbBtn";
+import { IoMdArrowDropleft } from "react-icons/io";
+import StudentsMarks from "@/components/classpage/StudentsMarks";
 
 export default function Page(){
     const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +20,7 @@ export default function Page(){
                 href="#" 
                 label={classLabel} 
             />
+            <IoMdArrowDropleft />
         </>
     );
 
@@ -34,8 +37,8 @@ export default function Page(){
                     isLoading ? 
                         <Loader />
                     :
-                    
-                    ""
+                    <StudentsMarks classId={classId} />
+                        
                 }
             </Layout>
         </Suspense>

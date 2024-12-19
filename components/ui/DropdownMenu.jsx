@@ -1,8 +1,8 @@
 "use client";
 import { useTheme } from "@/components/template/ConfigContext";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-export default function DropdownMenu({btn, children}){
+export default function DropdownMenu({btn, menuStyle, children}){
     const { accentColor } = useTheme();
     const dropdownRef = useRef(null);
     let [openMenu, setOpenMenu] = useState(false);
@@ -23,13 +23,29 @@ export default function DropdownMenu({btn, children}){
         };
     }, [setOpenMenu]);
 
+    // Handle child click
+    function handleChildClick(){
+        setOpenMenu(false);
+    }
+
     return(
         <div className="relative" ref={dropdownRef}>
-            <button onClick={() => setOpenMenu(!openMenu)}>
+            <button 
+                className="block w-full"
+                onClick={() => setOpenMenu(!openMenu)}
+            >
                 {btn}
             </button>
-            <div className={`bg-${accentColor} text-white absolute rounded-3xl transition duration-200 ease-out opacity-0 overflow-hidden ${openMenu ? "opacity-100" : "pointer-events-none"}`}>
-                {children}
+            <div className={`bg-${accentColor} text-white absolute z-20 transition duration-200 ease-out opacity-0 overflow-hidden ${openMenu ? "opacity-100" : "pointer-events-none"} ${menuStyle}`}>
+                {/* Clone children and attach the click handler */}
+                {React.Children.map(children, (child) =>
+                    React.cloneElement(child, {
+                        onClick: (e) => {
+                            if (child.props.onClick) child.props.onClick(e);
+                            handleChildClick();
+                        },
+                    })
+                )}
             </div>
         </div>
     );
