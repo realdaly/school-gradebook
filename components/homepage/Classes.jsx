@@ -1,8 +1,7 @@
 "use client";
 import ClassCard from "@/components/homepage/ClassCard";
 
-export default function Classes({classes, firstSubjectId, fetchClasses}){
-
+export default function Classes({classes, fetchClasses}){
     return(
         <div className="pb-5">
             {
@@ -16,7 +15,6 @@ export default function Classes({classes, firstSubjectId, fetchClasses}){
                             <ClassCard 
                                 key={item.id}
                                 currentClass={item}
-                                firstSubjectId={firstSubjectId}
                                 fetchClasses={fetchClasses}
                             />
                         ))}

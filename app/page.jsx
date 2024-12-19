@@ -6,7 +6,6 @@ import readClasses from "@/utils/homepage/readClasses";
 import { useEffect, useState } from "react";
 
 export default function Page(){
-    const [firstSubjectId, setFirstSubjectId] = useState("");
     const [classes, setClasses] = useState([]);
 
     const fetchClasses = async () => {
@@ -21,7 +20,6 @@ export default function Page(){
         <Layout>
             <Classes 
                 classes={classes}
-                firstSubjectId={firstSubjectId}
                 fetchClasses={fetchClasses}
             />
             <CreateClassBtn fetchClasses={fetchClasses} />
