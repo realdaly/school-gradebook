@@ -6,9 +6,7 @@ import readSubjects from "@/utils/subjects/readSubjects";
 
 export default function StudentsMarks({classId, isLiterary}){
     let [subjects, setSubjects] = useState([]);
-    let [students, setStudents] = useState([]);
-    console.log(isLiterary);
-    
+    let [students, setStudents] = useState([]);    
 
     // filter subjects before passing them to GradeTable
     async function getSubjects() {
@@ -35,6 +33,7 @@ export default function StudentsMarks({classId, isLiterary}){
                 <GradeTable
                     subjects={subjects}
                     students={students}
+                    getStudents={getStudents}
                     classId={classId}
                 />
             </div>
