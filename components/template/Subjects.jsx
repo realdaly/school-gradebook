@@ -1,29 +1,22 @@
-import DropdownMenu from "@/components/ui/DropdownMenu";
 import readSubjects from "@/utils/subjects/readSubjects";
 import { useEffect, useState } from "react";
 import { ImBooks } from "react-icons/im";
 import Button from "@/components/ui/Button";
-import SubjectBtn from "@/components/subjects/SubjectBtn";
-import createSubject from "@/utils/subjects/createSubject";
+import SubjectItem from "@/components/subjects/SubjectItem";
 import Modal from "@/components/ui/Modal";
+import CreateSubjectBtn from "@/components/subjects/CreateSubjectBtn";
 
 export default function Subjects(){
     let [subjects, setSubjects] = useState([]);
-
     let [isOpen, setIsOpen] = useState(false);
-    let [subjectName, setSubjectName] = useState("");
 
     async function fetchSubjects(){
         const fetchedSubjects = await readSubjects();
         setSubjects(fetchedSubjects);
     };
 
-    const submitFunc = async () => {
-        setIsOpen(false);
-        await createSubject(subjectName);
-        await fetchSubjects();
-        setSubjectName("");
-    }
+    const scientificSubjects = subjects.filter(subject => subject.is_literary == "false");
+    const literarySubjects = subjects.filter(subject => subject.is_literary == "true");
 
     useEffect(() => {
        fetchSubjects(setSubjects); 
@@ -31,59 +24,48 @@ export default function Subjects(){
 
     return(
         <>
-            <DropdownMenu
-                btn={
-                    <Button
-                        label="المواد الدراسية"
-                        style="border"
-                    >
-                        <ImBooks className="size-5" />
-                    </Button>
-                }
-                menuStyle="rounded-3xl"
+            
+            <Button
+                label="المواد الدراسية"
+                setFunc={setIsOpen}
             >
-                {subjects.map(subject => (
-                    <div 
-                        key={subject.id}
-                    >
-                        <SubjectBtn  
-                            currentSubject={subject}
-                            fetchSubjects={fetchSubjects}
-                        />
-                    </div>
-                ))}
-                <p 
-                    className="px-5 py-1 whitespace-nowrap transition-all text-xl bg-comp/30 hover:bg-comp hover:text-black cursor-pointer"
-                    onClick={() => setIsOpen(true)}
-                >
-                    إضافة مادة +
-                </p>
-            </DropdownMenu>
+                <ImBooks className="size-5" />
+            </Button>
             <Modal 
-                title="إضافة مادة"
-                sumbitLabel="إضافة"
+                title="الــمـــــواد الــدراســيـــــــــــة"
+                sumbitLabel="تــــــــم"
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                submitFunc={submitFunc}
+                submitFunc={() => setIsOpen(false)}
             >
-                <form 
-                    className="flex flex-col items-center gap-3"
-                    onSubmit={e => {
-                        e.preventDefault(),
-                        submitFunc()
-                    }}
-                >
-                    <input 
-                        placeholder="اسم المادة"
-                        className="py-1 px-4 bg-comp rounded-2xl w-72 border-accent1 border"
-                        onChange={e => setSubjectName(e.target.value)}
-                        name="title"
-                        value={subjectName}
-                        data-autofocus
-                    />
-                    <button type="submit" hidden />
-                </form>
+                <div className="flex items-start justify-between gap-x-10">
+                    {renderSubjectsContainer("مواد العلمي", scientificSubjects, fetchSubjects)}
+                    {renderSubjectsContainer("مواد الأدبي", literarySubjects, fetchSubjects)}
+                </div>
+                <CreateSubjectBtn 
+                    fetchSubjects={fetchSubjects}
+                />
             </Modal>
         </>
+    );
+}
+
+function renderSubjectsContainer(title, filteredSubjects, fetchSubjects){
+    return(
+        <div>
+            <p className="text-xl text-center">{title}</p>
+            <div className="bg-comp rounded-2xl border-accent1 border overflow-clip">
+                {filteredSubjects?.length == 0 && 
+                    <p className="w-60 text-center py-1">القائمة فارغة.</p>
+                }
+                {filteredSubjects.map(subject => (
+                    <SubjectItem  
+                        key={subject.id}
+                        currentSubject={subject}
+                        fetchSubjects={fetchSubjects}
+                    />
+                ))}
+            </div>
+        </div>
     );
 }

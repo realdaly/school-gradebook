@@ -10,8 +10,8 @@ export default function Modal({isOpen, setIsOpen, title, desc, sumbitLabel, subm
         >
             <DialogBackdrop className="fixed inset-0 bg-black/70" />
             <div className="fixed inset-0 flex w-screen h-screen items-center justify-center p-4">
-                <DialogPanel className="max-w-lg space-y-4 border bg-white p-7 rounded-2xl">
-                    <DialogTitle className="font-bold text-xl text-center">
+                <DialogPanel className="space-y-4 border bg-white p-7 rounded-2xl">
+                    <DialogTitle className="font-bold text-2xl text-center">
                         {title}
                     </DialogTitle>
                     <Description className="text-center">{desc}</Description>

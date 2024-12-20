@@ -4,14 +4,20 @@ import CreateStudentsBtn from "@/components/classpage/CreateStudentsBtn";
 import GradeTable from "@/components/classpage/GradeTable";
 import readSubjects from "@/utils/subjects/readSubjects";
 
-export default function StudentsMarks({classId}){
+export default function StudentsMarks({classId, isLiterary}){
     let [subjects, setSubjects] = useState([]);
     let [students, setStudents] = useState([]);
+    console.log(isLiterary);
+    
 
-    async function getSubjects(){
+    // filter subjects before passing them to GradeTable
+    async function getSubjects() {
         const fetchedSubjects = await readSubjects();
-        setSubjects(fetchedSubjects);
-    };
+        const filteredSubjects = fetchedSubjects.filter(
+            subject => subject.is_literary == isLiterary
+        );
+        setSubjects(filteredSubjects);
+    }
 
     async function getStudents(){
         const fetchedStudents = await readStudents(classId);

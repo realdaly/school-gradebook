@@ -18,7 +18,8 @@ export default async function initDatabase(){
         CREATE TABLE IF NOT EXISTS "class" (
             "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
             "title" VARCHAR(255) NOT NULL,
-            "theme" VARCHAR(20) DEFAULT NULL
+            "theme" VARCHAR(20) DEFAULT NULL,
+            "is_literary" VARCHAR(5) NOT NULL
         );
     `);
 
@@ -26,7 +27,8 @@ export default async function initDatabase(){
     await db.execute(`
         CREATE TABLE IF NOT EXISTS "subject" (
             "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-            "title" VARCHAR(255) NOT NULL
+            "title" VARCHAR(255) NOT NULL,
+            "is_literary" VARCHAR(5) NOT NULL
         );
     `);
 

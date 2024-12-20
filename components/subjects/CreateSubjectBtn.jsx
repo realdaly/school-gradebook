@@ -1,35 +1,32 @@
 "use client";
 import { useState } from "react";
 import Modal from "@/components/ui/Modal";
-import createClass from "@/utils/homepage/createClass";
+import createSubject from "@/utils/subjects/createSubject";
 import Button from "@/components/ui/Button";
-import { themes } from "@/data/themes";
 
-export default function CreateClassBtn({fetchClasses}){
+export default function CreateSubjectBtn({fetchSubjects}){
     let [isOpen, setIsOpen] = useState(false);
-    let [className, setClassName] = useState("");
-    let [classTheme, setClassTheme] = useState("theme1");
+
+    let [subjectName, setSubjectName] = useState("");
     let [isLiterary, setIsLiterary] = useState(false);
 
     const submitFunc = async () => {
         setIsOpen(false);
-        await createClass(className, classTheme, isLiterary);
-        await fetchClasses();
-        setClassName("");
-        setClassTheme("theme1");
-        setIsLiterary(false);
+        await createSubject(subjectName, isLiterary);
+        await fetchSubjects();
+        setSubjectName("");
     }
 
     return(
     <>
-        <Button 
-            label="إضافة صف +"
-            title="انقر لإضافة صف جديد"
+        <Button
+            label="إضافة +"
             setFunc={setIsOpen}
-            style="mx-auto" 
+            style="mx-auto !py-0 font-normal !text-lg"
+            title="انقر لإضافة مادة جديدة"
         />
         <Modal 
-            title="إضافة صف"
+            title="إضافة مادة"
             sumbitLabel="إضافة"
             isOpen={isOpen}
             setIsOpen={setIsOpen}
@@ -43,28 +40,13 @@ export default function CreateClassBtn({fetchClasses}){
                 }}
             >
                 <input 
-                    placeholder="اسم الصف"
+                    placeholder="اسم المادة"
                     className="py-1 px-4 bg-comp rounded-2xl w-72 border-accent1 border"
-                    onChange={e => setClassName(e.target.value)}
+                    onChange={e => setSubjectName(e.target.value)}
                     name="title"
-                    value={className}
+                    value={subjectName}
                     data-autofocus
                 />
-                <div className="flex flex-wrap items-center">
-                    {themes.map(theme => (
-                        <div
-                            className="px-1.5 cursor-pointer transition-all hover:opacity-75"
-                            key={theme}
-                            onClick={() => setClassTheme(theme)}
-                        >
-                            <div
-                                className={`bg-${theme} size-5 rounded-full ${
-                                    classTheme === theme ? "border-2 border-black" : ""
-                                }`}
-                            ></div>
-                        </div>
-                    ))}
-                </div>
                 {/* radio buttons for selecting "علمي" or "أدبي" */}
                 <div className="flex items-center">
                         <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">

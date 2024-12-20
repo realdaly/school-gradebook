@@ -2,27 +2,17 @@ import { useState } from "react";
 import Modal from "@/components/ui/Modal";
 import { TbEditCircle } from "react-icons/tb";
 import updateClass from "@/utils/homepage/updateClass";
+import { themes } from "@/data/themes";
 
 export default function UpdateClassBtn({currentClass, fetchClasses}){
     let [isOpen, setIsOpen] = useState(false);
     let [className, setClassName] = useState(currentClass.title);
     let [classTheme, setClassTheme] = useState(currentClass.theme);
-
-    const themes = [
-        "theme1",
-        "theme2",
-        "theme3",
-        "theme4",
-        "theme5",
-        "theme6",
-        "theme7",
-        "theme8",
-        "theme9",
-    ];
+    let [isLiterary, setIsLiterary] = useState(currentClass.is_literary == "false" ? false : true);   
 
     const submitFunc = async () => {
         setIsOpen(false);
-        await updateClass(className, classTheme, currentClass.id);
+        await updateClass(className, classTheme, isLiterary, currentClass.id);
         await fetchClasses();
         setClassName(prev => prev);
         setClassTheme(prev => prev);
@@ -59,6 +49,7 @@ export default function UpdateClassBtn({currentClass, fetchClasses}){
                     value={className}
                     data-autofocus
                 />
+                {/* theme settings for selecting prefered theme from themes array */}
                 <div className="flex flex-wrap items-center">
                     {themes.map(theme => (
                         <div
@@ -74,6 +65,29 @@ export default function UpdateClassBtn({currentClass, fetchClasses}){
                         </div>
                     ))}
                 </div>
+                {/* radio buttons for selecting "علمي" or "أدبي" */}
+                <div className="flex items-center">
+                        <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
+                            <input
+                                type="radio"
+                                name="is_literary"
+                                value="false"
+                                checked={!isLiterary}
+                                onChange={() => setIsLiterary(false)}
+                            />
+                            علمي
+                        </label>
+                        <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
+                            <input
+                                type="radio"
+                                name="is_literary"
+                                value="true"
+                                checked={isLiterary}
+                                onChange={() => setIsLiterary(true)}
+                            />
+                            أدبي
+                        </label>
+                    </div>
                 <button type="submit" hidden />
             </form>
         </Modal>

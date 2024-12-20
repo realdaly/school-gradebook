@@ -36,7 +36,7 @@ export default function DropdownMenu({btn, menuStyle, children}){
             >
                 {btn}
             </button>
-            <div className={`bg-${accentColor} text-white absolute z-20 transition duration-200 ease-out opacity-0 overflow-hidden ${openMenu ? "opacity-100" : "pointer-events-none"} ${menuStyle}`}>
+            <div className={`bg-${accentColor} text-white absolute z-20 transition duration-200 ease-out opacity-0 overflow-hidden ${openMenu ? "opacity-100 h-auto" : "pointer-events-none h-0"} ${menuStyle}`}>
                 {/* Clone children and attach the click handler */}
                 {React.Children.map(children, (child) =>
                     React.cloneElement(child, {

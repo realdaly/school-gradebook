@@ -36,7 +36,7 @@ export default function GradeTable({students, subjects, classId}){
                 {/* Header */}
                 <DropdownMenu
                     btn={
-                        <div className={`bg-${accentColor} text-white p-2 text-center font-bold text-lg border-b border-black/30 rounded-t-2xl flex items-center justify-center`}>
+                        <div className={`bg-${accentColor} text-white px-2 py-1 text-center font-bold text-lg border-b border-black/30 rounded-t-2xl flex items-center justify-center`}>
                             {currentTerm?.title}
                             <IoMdArrowDropdown />
                         </div>
@@ -60,18 +60,18 @@ export default function GradeTable({students, subjects, classId}){
                 {/* Subjects Header */}
                 <div className="flex bg-comp text-center border border-b-0 border-t-0 border-black/30">
                     <div className="w-8 border-l border-black/30 flex-shrink-0"></div>
-                    <div className="min-w-44 max-w-44 overflow-clip flex-shrink-0"></div>
-                    <div className="flex-1 p-2 border-b border-r text-lg font-bold border-black/30">المواد الدراسية</div>
+                    <div className="min-w-[195px] max-w-[195px] overflow-clip flex-shrink-0"></div>
+                    <div className="flex-1 px-2 border-b border-r text-lg font-bold border-black/30">المواد الدراسية</div>
                 </div>
                 
                 {/* Subjects */}
                 <div className="flex bg-comp text-center border-x border-b border-black/30">
-                    <div className="w-8 px-3 border-l text-base font-bold border-black/30">ت</div>
-                    <div className="min-w-44 max-w-44 overflow-clip p-2 text-base font-bold whitespace-nowrap">اسم الطالب</div>
+                    <div className="w-8 border-l text-base font-bold border-black/30">ت</div>
+                    <div className="min-w-[195px] max-w-[195px] overflow-clip px-2 py-1 text-base font-bold whitespace-nowrap">اسم الطالب</div>
                     {subjects?.map(subject => (
                         <div 
                             key={subject.id} 
-                            className="min-w-[104px] max-w-[104px] p-2 border-r border-black/30 text-base font-bold whitespace-nowrap"
+                            className="min-w-[105px] max-w-[105px] px-2 py-1 border-r border-black/30 text-base font-bold whitespace-nowrap"
                         >
                             {subject.title}
                         </div>
@@ -81,10 +81,10 @@ export default function GradeTable({students, subjects, classId}){
                 {/* Students and Grades */}
                 {students?.map((student, studentIndex) => (
                     <div key={studentIndex} className="flex odd:bg-domI border-x border-b border-black/30 last:rounded-b-2xl">
-                        <div className="w-8 p-2 text-center flex-shrink-0">{studentIndex + 1}</div>
+                        <div className="w-8 px-1 py-1 text-center">{studentIndex + 1}</div>
                         <div 
                             title={student.name}
-                            className="min-w-44 max-w-44 overflow-clip p-2 border-r border-black/30 text-right whitespace-nowrap flex-shrink-0"
+                            className="min-w-[195px] max-w-[195px] overflow-clip px-2 py-1 border-r border-black/30 text-right whitespace-nowrap flex-shrink-0"
                         >
                             {student.name}
                         </div>
@@ -102,7 +102,7 @@ export default function GradeTable({students, subjects, classId}){
                             return (
                                 <div
                                     key={gradeIndex}
-                                    className="min-w-[104px] max-w-[104px] p-2 border-r border-black/30 text-center"
+                                    className="min-w-[105px] max-w-[105px] px-2 py-1 border-r border-black/30 text-center"
                                 >
                                     {markValue}
                                 </div>

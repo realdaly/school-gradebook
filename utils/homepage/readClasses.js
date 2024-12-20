@@ -6,7 +6,8 @@ export default async function readClasses(setData){
         SELECT 
             class.id, 
             class.title, 
-            class.theme, 
+            class.theme,
+            class.is_literary, 
             COUNT(student.id) AS student_count 
         FROM 
             class

@@ -20,6 +20,7 @@ export default function CreateStudentsBtn({classId, getStudents}){
             label="إضافة طلاب +"
             title="انقر لإضافة مجموعة طلاب"
             setFunc={setIsOpen}
+            style="mx-auto"
         />
         <Modal 
             title="إضافة طلاب"

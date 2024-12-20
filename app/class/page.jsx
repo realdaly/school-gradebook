@@ -12,6 +12,7 @@ export default function Page(){
     
     const classId = searchParams?.get("classid");
     const classLabel = searchParams?.get("classlabel");
+    const isLiterary = searchParams?.get("isliterary");
     
     const breadcrumb = (
         <>
@@ -39,8 +40,10 @@ export default function Page(){
                 isLoading ? 
                     <Loader />
                 :
-                <StudentsMarks classId={classId} />
-                    
+                <StudentsMarks 
+                    classId={classId} 
+                    isLiterary={isLiterary}
+                />
             }
         </Layout>
     );

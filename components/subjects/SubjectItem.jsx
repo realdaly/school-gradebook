@@ -1,13 +1,13 @@
 import DeleteSubjectBtn from "@/components/subjects/DeleteSubjectBtn";
 import UpdateSubjectBtn from "@/components/subjects/UpdateSubjectBtn";
 
-export default function SubjectBtn({currentSubject, fetchSubjects}){
+export default function SubjectItem({currentSubject, fetchSubjects}){
     return(
         <div 
-            className="pr-5 pl-3 py-1 text-xl first:pt-2 transition-all hover:bg-comp hover:text-black cursor-default flex items-center gap-x-3"
+            className="px-4 py-1 even:bg-domI text-lg hover:text-black cursor-default flex items-center gap-x-3"
         >
             <div
-                className="w-40 line-clamp-1"
+                className="w-36 line-clamp-1"
             >
                 {currentSubject.title}
             </div>

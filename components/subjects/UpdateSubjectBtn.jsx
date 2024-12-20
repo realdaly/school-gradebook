@@ -6,9 +6,10 @@ import updateSubject from "@/utils/subjects/updateSubject";
 export default function UpdateSubjectBtn({currentSubject, fetchSubjects}){
     let [isOpen, setIsOpen] = useState(false);
     let [subjectTitle, setSubjectTitle] = useState(currentSubject.title);
+    let [isLiterary, setIsLiterary] = useState(currentSubject.is_literary == "false" ? false : true);
 
     const submitFunc = async () => {
-        await updateSubject(subjectTitle, currentSubject.id);
+        await updateSubject(subjectTitle, isLiterary, currentSubject.id);
         await fetchSubjects();
         setIsOpen(false);
         setSubjectTitle(prev => prev);
@@ -45,6 +46,29 @@ export default function UpdateSubjectBtn({currentSubject, fetchSubjects}){
                     value={subjectTitle}
                     data-autofocus
                 />
+                {/* radio buttons for selecting "علمي" or "أدبي" */}
+                <div className="flex items-center">
+                    <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
+                        <input
+                            type="radio"
+                            name="is_literary"
+                            value="false"
+                            checked={!isLiterary}
+                            onChange={() => setIsLiterary(false)}
+                        />
+                        علمي
+                    </label>
+                    <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
+                        <input
+                            type="radio"
+                            name="is_literary"
+                            value="true"
+                            checked={isLiterary}
+                            onChange={() => setIsLiterary(true)}
+                        />
+                        أدبي
+                    </label>
+                </div>
                 <button type="submit" hidden />
             </form>
         </Modal>
