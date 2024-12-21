@@ -28,19 +28,17 @@ export default function StudentsMarks({classId, isLiterary}){
     }, []);
 
     return(
-        <>
-            <div>
-                <GradeTable
-                    subjects={subjects}
-                    students={students}
-                    getStudents={getStudents}
-                    classId={classId}
-                />
-            </div>
+        <div className="pb-5">
+            <GradeTable
+                subjects={subjects}
+                students={students}
+                getStudents={getStudents}
+                classId={classId}
+            />
             <CreateStudentsBtn 
                 classId={classId}
                 getStudents={getStudents}
             />
-        </>
+        </div>
     );
 }

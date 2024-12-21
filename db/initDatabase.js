@@ -64,15 +64,27 @@ export default async function initDatabase(){
             "midterm_mark" REAL DEFAULT NULL,
             "second_term_mark" REAL DEFAULT NULL,
             "average_mark" REAL GENERATED ALWAYS AS (
-                (COALESCE(first_term_mark, 0) + COALESCE(midterm_mark, 0) + COALESCE(second_term_mark, 0)) / 3
+                CASE 
+                    WHEN first_term_mark IS NOT NULL AND midterm_mark IS NOT NULL AND second_term_mark IS NOT NULL 
+                    THEN (first_term_mark + midterm_mark + second_term_mark) / 3 
+                    ELSE NULL
+                END
             ) VIRTUAL,
             "final_exam_mark" REAL DEFAULT NULL,
             "final_mark" REAL GENERATED ALWAYS AS (
-                (COALESCE(average_mark, 0) + COALESCE(final_exam_mark, 0)) / 2
+                CASE 
+                    WHEN average_mark IS NOT NULL AND final_exam_mark IS NOT NULL 
+                    THEN (average_mark + final_exam_mark) / 2 
+                    ELSE NULL
+                END
             ) VIRTUAL,
             "second_try_mark" REAL DEFAULT NULL,
             "final_mark_after_second_try" REAL GENERATED ALWAYS AS (
-                (COALESCE(average_mark, 0) + COALESCE(second_try_mark, 0)) / 2
+                CASE 
+                    WHEN second_try_mark IS NOT NULL 
+                    THEN (COALESCE(average_mark, 0) + second_try_mark) / 2 
+                    ELSE NULL
+                END
             ) VIRTUAL,
             FOREIGN KEY ("class_id") REFERENCES "class" ("id") ON DELETE CASCADE,
             FOREIGN KEY ("subject_id") REFERENCES "subject" ("id") ON DELETE CASCADE,

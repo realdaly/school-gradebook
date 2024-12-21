@@ -29,7 +29,7 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
         setIsAlert(true);
     }
 
-    const handleContextMenu = (e, student) => {
+    const handleContextMenu = (e, student) => {        
         e.preventDefault();
         setMenuVisible(true);
         setMenuPosition(e.pageY);
@@ -41,16 +41,13 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
     };
 
     return (
-        <div
-            className="relative" 
-            onClick={handleCloseMenu}
-        >
+        <div onClick={handleCloseMenu}>
             {students?.map((student, studentIndex) => (
                 <div
                     key={studentIndex}
-                    className="flex odd:bg-domI border-x border-b border-black/30 last:rounded-b-2xl"
+                    className="flex odd:bg-domI border-x border-b border-black/30"
                 >
-                    <div className="w-8 px-1 py-1 text-center">{studentIndex + 1}</div>
+                    <div className={`w-8 px-1 py-1 text-center ${student.notes != "" && student.notes != null ? "bg-amber-200" : ""}`}>{studentIndex + 1}</div>
                     <div
                         title={student.name}
                         className="min-w-[195px] max-w-[195px] overflow-clip px-2 py-1 border-r border-black/30 text-right whitespace-nowrap flex-shrink-0"
@@ -70,38 +67,50 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
                             ? Math.round(mark[currentTerm.mark_ref]) 
                             : "";
 
-                        // render edit form if there's a mark already
-                        if(mark){
-                            return (
-                                <form
-                                    key={gradeIndex}
-                                    onSubmit={e => changeMark(e, mark?.id)}
-                                >
-                                    <input
-                                        type="text"
-                                        maxLength={3}
-                                        onKeyDown={e => handleMarkInput(e, setMark)}
-                                        placeholder={markValue}
-                                        className={`min-w-[105px] max-w-[105px] px-2 py-1 border-r border-black/30 text-center placeholder:text-black cursor-cell ${markValue != "" && markValue < 50 ? "bg-danger/40" : ""}`}
-                                    />
-                                </form>
-                            );
-                        } else {
-                            return(
-                                <form
-                                    key={gradeIndex}
-                                    onSubmit={e => addMark(e, subject.id, student.id)}
-                                >
-                                    <input
-                                        type="text"
-                                        maxLength={3}
-                                        onKeyDown={e => handleMarkInput(e, setMark)}
-                                        placeholder={markValue}
-                                        className="min-w-[105px] max-w-[105px] px-2 py-1 border-r border-black/30 text-center placeholder:text-black cursor-cell"
-                                    />
-                                </form>
-                            );
-                        }
+                            // render non-editable field if mark is not supposed to be edited manually
+                            if(currentTerm.mark_ref == "average_mark" || currentTerm.mark_ref == "final_mark" || currentTerm.mark_ref == "final_mark_after_second_try"){
+                                return(
+                                    <div
+                                        key={gradeIndex}
+                                        className={`min-w-[105px] max-w-[105px] px-2 py-1 border-r border-black/30 text-center ${markValue != "" && markValue < 50 ? "bg-danger/40" : ""}`}
+                                    >
+                                        {markValue}
+                                    </div>
+                                )
+                            } else {
+                                // render edit form if there's a mark already
+                                if(mark){
+                                    return (
+                                        <form
+                                            key={gradeIndex}
+                                            onSubmit={e => changeMark(e, mark?.id)}
+                                        >
+                                            <input
+                                                type="text"
+                                                maxLength={3}
+                                                onKeyDown={e => handleMarkInput(e, setMark)}
+                                                placeholder={markValue}
+                                                className={`min-w-[105px] max-w-[105px] px-2 py-1 border-r border-black/30 text-center placeholder:text-black cursor-cell ${markValue != "" && markValue < 50 ? "bg-danger/40" : ""}`}
+                                            />
+                                        </form>
+                                    );
+                                } else {
+                                    return(
+                                        <form
+                                            key={gradeIndex}
+                                            onSubmit={e => addMark(e, subject.id, student.id)}
+                                        >
+                                            <input
+                                                type="text"
+                                                maxLength={3}
+                                                onKeyDown={e => handleMarkInput(e, setMark)}
+                                                placeholder={markValue}
+                                                className="min-w-[105px] max-w-[105px] px-2 py-1 border-r border-black/30 text-center placeholder:text-black cursor-cell"
+                                            />
+                                        </form>
+                                    );
+                                }
+                            }
                     })}
                 </div>
             ))}
