@@ -1,11 +1,33 @@
 import { useState } from "react";
-import UpdateStudentBtn from "@/components/gradeTable/UpdateStudentBtn";
-import DeleteStudentBtn from "@/components/gradeTable/DeleteStudentBtn";
+import RightClickMenu from "@/components/gradeTable/RightClickMenu";
+import handleMarkInput from "@/utils/handleMarkInput";
+import updateMarks from "@/utils/marks/updateMarks";
+import createMarks from "@/utils/marks/createMarks";
+import SuccessAlert from "@/components/template/SuccessAlert";
 
-export default function StudentsAndGrades({students, subjects, marks, currentTerm, getStudents}) {
+export default function StudentsAndGrades({students, subjects, marks, currentTerm, getStudents, getMarks, classId}) {
+    const [isAlert, setIsAlert] = useState(false);
     const [menuVisible, setMenuVisible] = useState(false);
     const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+
     const [currentStudent, setCurrentStudent] = useState();
+    const [mark, setMark] = useState();
+
+    const addMark = (event, subjectId, studentId) => {
+        event.preventDefault();
+        createMarks(classId, subjectId, studentId, currentTerm.mark_ref, mark);
+        setMark("");
+        getMarks();
+        setIsAlert(true);
+    }
+
+    const changeMark = (event, currentMark) => {        
+        event.preventDefault();
+        updateMarks([currentTerm?.mark_ref], mark, currentMark);
+        setMark("");
+        getMarks();
+        setIsAlert(true);
+    }
 
     const handleContextMenu = (e, student) => {
         e.preventDefault();
@@ -19,7 +41,10 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
     };
 
     return (
-        <div onClick={handleCloseMenu}>
+        <div
+            className="relative" 
+            onClick={handleCloseMenu}
+        >
             {students?.map((student, studentIndex) => (
                 <div
                     key={studentIndex}
@@ -40,43 +65,61 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
                                 termMark.subject_id === subject.id
                         );
 
-                        // round mark value before displaying it
-                        const markValue = mark ? Math.round(mark[currentTerm?.mark_ref] ?? 0) : "";
+                        // round mark value before displaying it if there's value, else return empty string
+                        const markValue = mark?.[currentTerm?.mark_ref] != null 
+                            ? Math.round(mark[currentTerm.mark_ref]) 
+                            : "";
 
-                        return (
-                            <div
-                                key={gradeIndex}
-                                className="min-w-[105px] max-w-[105px] px-2 py-1 border-r border-black/30 text-center"
-                            >
-                                {markValue}
-                            </div>
-                        );
+                        // render edit form if there's a mark already
+                        if(mark){
+                            return (
+                                <form
+                                    key={gradeIndex}
+                                    onSubmit={e => changeMark(e, mark?.id)}
+                                >
+                                    <input
+                                        type="text"
+                                        maxLength={3}
+                                        onKeyDown={e => handleMarkInput(e, setMark)}
+                                        placeholder={markValue}
+                                        className={`min-w-[105px] max-w-[105px] px-2 py-1 border-r border-black/30 text-center placeholder:text-black cursor-cell ${markValue != "" && markValue < 50 ? "bg-danger/40" : ""}`}
+                                    />
+                                </form>
+                            );
+                        } else {
+                            return(
+                                <form
+                                    key={gradeIndex}
+                                    onSubmit={e => addMark(e, subject.id, student.id)}
+                                >
+                                    <input
+                                        type="text"
+                                        maxLength={3}
+                                        onKeyDown={e => handleMarkInput(e, setMark)}
+                                        placeholder={markValue}
+                                        className="min-w-[105px] max-w-[105px] px-2 py-1 border-r border-black/30 text-center placeholder:text-black cursor-cell"
+                                    />
+                                </form>
+                            );
+                        }
                     })}
                 </div>
             ))}
 
             {/* right click menu */}
             {menuVisible && (
-                <div
-                    className="absolute z-10 mr-8"
-                    style={{
-                        top: `${menuPosition}px`,
-                    }}
-                >
-                    <div className="absolute bg-white border border-black shadow-md rounded-md min-w-36">
-                        <UpdateStudentBtn 
-                            currentStudent={currentStudent}
-                            getStudents={getStudents}
-                            closeMenu={() => setMenuVisible(false)}
-                        />
-                        <DeleteStudentBtn 
-                            currentStudent={currentStudent}
-                            getStudents={getStudents}
-                            closeMenu={() => setMenuVisible(false)}
-                        />
-                    </div>
-                </div>
+                <RightClickMenu 
+                    currentStudent={currentStudent}
+                    getStudents={getStudents}
+                    menuPosition={menuPosition}
+                    setMenuVisible={setMenuVisible}
+                />
             )}
+            <SuccessAlert
+                isVisible={isAlert}
+                setIsVisible={setIsAlert}
+                message="تم"
+            />
         </div>
     );
 }

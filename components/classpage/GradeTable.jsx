@@ -55,6 +55,8 @@ export default function GradeTable({students, subjects, getStudents, classId}){
                     students={students}
                     subjects={subjects}
                     getStudents={getStudents}
+                    getMarks={getMarks}
+                    classId={classId}
                 />             
             </div>
         </div>

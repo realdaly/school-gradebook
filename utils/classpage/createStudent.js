@@ -4,7 +4,7 @@ export default async function createStudent(name, classId){
     const db = await Database.load("sqlite:grades.db", {dir: "AppData"});
 
     await db.execute(
-        "INSERT into student (name, class_id) VALUES ($1, $2)",
+        "INSERT into student (name, class_id) VALUES ($1, $2) RETURNING id",
         [name, classId],
     );
 }
