@@ -13,19 +13,19 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
     const [currentStudent, setCurrentStudent] = useState();
     const [mark, setMark] = useState();
 
-    const addMark = (event, subjectId, studentId) => {
+    const addMark = async (event, subjectId, studentId) => {
         event.preventDefault();
-        createMarks(classId, subjectId, studentId, currentTerm.mark_ref, mark);
+        await createMarks(classId, subjectId, studentId, currentTerm.mark_ref, mark);
+        await getMarks();
         setMark("");
-        getMarks();
         setIsAlert(true);
     }
 
-    const changeMark = (event, currentMark) => {        
+    const changeMark = async (event, currentMark) => {        
         event.preventDefault();
-        updateMarks([currentTerm?.mark_ref], mark, currentMark);
+        await updateMarks([currentTerm?.mark_ref], mark, currentMark);
+        await getMarks();
         setMark("");
-        getMarks();
         setIsAlert(true);
     }
 
@@ -47,7 +47,9 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
                     key={studentIndex}
                     className="flex odd:bg-domI border-x border-b border-black/30"
                 >
-                    <div className={`w-8 px-1 py-1 text-center ${student.notes != "" && student.notes != null ? "bg-amber-200" : ""}`}>{studentIndex + 1}</div>
+                    <div className={`w-8 px-1 py-1 text-center ${student.notes != "" && student.notes != null ? "bg-amber-200" : ""}`}>
+                        {studentIndex + 1}
+                    </div>
                     <div
                         title={student.name}
                         className="min-w-[195px] max-w-[195px] overflow-clip px-2 py-1 border-r border-black/30 text-right whitespace-nowrap flex-shrink-0"
