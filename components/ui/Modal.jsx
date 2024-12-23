@@ -5,7 +5,7 @@ export default function Modal({isOpen, setIsOpen, title, desc, sumbitLabel, subm
         <Dialog 
             open={isOpen} 
             onClose={() => setIsOpen(false)} 
-            className="relative z-50 transition duration-150 ease-out data-[closed]:opacity-0"
+            className="relative z-50 transition duration-150 ease-out data-[closed]:opacity-0 dialog-panel"
             transition
         >
             <DialogBackdrop className="fixed inset-0 bg-black/70" />

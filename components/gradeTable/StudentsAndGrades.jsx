@@ -1,14 +1,15 @@
 import { useState } from "react";
-import RightClickMenu from "@/components/gradeTable/RightClickMenu";
 import handleMarkInput from "@/utils/handleMarkInput";
 import updateMarks from "@/utils/marks/updateMarks";
 import createMarks from "@/utils/marks/createMarks";
 import SuccessAlert from "@/components/template/SuccessAlert";
+import UpdateStudentBtn from "@/components/gradeTable/UpdateStudentBtn";
+import DeleteStudentBtn from "@/components/gradeTable/DeleteStudentBtn";
 
-export default function StudentsAndGrades({students, subjects, marks, currentTerm, getStudents, getMarks, classId}) {
+export default function StudentsAndGrades({students, subjects, marks, currentTerm, getStudents, getMarks, classId}){
     const [isAlert, setIsAlert] = useState(false);
     const [menuVisible, setMenuVisible] = useState(false);
-    const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+    const [menuPosition, setMenuPosition] = useState();
 
     const [currentStudent, setCurrentStudent] = useState();
     const [mark, setMark] = useState();
@@ -36,12 +37,8 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
         setCurrentStudent(student);
     };
 
-    const handleCloseMenu = () => {
-        setMenuVisible(false);
-    };
-
     return (
-        <div onClick={handleCloseMenu}>
+        <div onClick={() =>  setMenuVisible(false)}>
             {students?.map((student, studentIndex) => (
                 <div
                     key={studentIndex}
@@ -119,12 +116,25 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
 
             {/* right click menu */}
             {menuVisible && (
-                <RightClickMenu 
-                    currentStudent={currentStudent}
-                    getStudents={getStudents}
-                    menuPosition={menuPosition}
-                    setMenuVisible={setMenuVisible}
-                />
+                <div
+                    className="absolute z-10 mr-8"
+                    style={{
+                        top: `${menuPosition}px`,
+                    }}
+                >
+                    <div className="absolute bg-white border border-black shadow-md rounded-md min-w-36">
+                        <UpdateStudentBtn 
+                            currentStudent={currentStudent}
+                            getStudents={getStudents}
+                            closeMenu={() => setMenuVisible(false)}
+                        />
+                        <DeleteStudentBtn 
+                            currentStudent={currentStudent}
+                            getStudents={getStudents}
+                            closeMenu={() => setMenuVisible(false)}
+                        />
+                    </div>
+                </div>
             )}
             <SuccessAlert
                 isVisible={isAlert}

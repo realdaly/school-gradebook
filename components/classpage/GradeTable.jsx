@@ -39,6 +39,8 @@ export default function GradeTable({students, subjects, getStudents, classId}){
                     currentTerm={currentTerm}
                     setCurrentTerm={setCurrentTerm}
                     terms={terms}
+                    classId={classId}
+                    getMarks={getMarks}
                 />
                 {/* Subjects Header */}
                 <div className="flex bg-comp text-center border border-b-0 border-t-0 border-black/30">
