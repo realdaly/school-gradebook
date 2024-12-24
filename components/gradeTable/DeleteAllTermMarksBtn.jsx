@@ -20,8 +20,8 @@ export default function DeleteAllTermMarks({currentTerm, classId, getMarks}){
                 }}
                 className="text-green-600 transition-all hover:opacity-75 flex justify-between w-full font-bold hover:bg-comp/50 px-2 py-1"
             >
-                <BsEraserFill className="size-5" />
                 إفراغ جميع الحقول
+                <BsEraserFill className="size-5" />
             </button>
             <Modal 
                 title={`هل أنت متأكد من رغبتك في حذف جميع الدرجات؟`}

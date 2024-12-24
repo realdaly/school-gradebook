@@ -5,6 +5,7 @@ import Layout from "@/components/template/Layout";
 import BreadcrumbBtn from "@/components/template/BreadcrumbBtn";
 import { IoMdArrowDropleft } from "react-icons/io";
 import StudentsMarks from "@/components/classpage/StudentsMarks";
+import PrintBtn from "@/components/template/PrintBtn";
 
 export default function Page(){
     const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +36,12 @@ export default function Page(){
     }
 
     return(
-        <Layout beadcrumb={breadcrumb}>
+        <Layout 
+            beadcrumb={breadcrumb}
+            tools={
+                <PrintBtn />
+            }
+        >
             {
                 isLoading ? 
                     <Loader />

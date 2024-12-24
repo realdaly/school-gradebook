@@ -13,3 +13,17 @@
         scrollbar-width: none;  /* Firefox */
   }
 }
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #GradeTable, #GradeTable * {
+        visibility: visible !important;
+    }
+    #GradeTable {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }

@@ -21,7 +21,7 @@ export default function UpdateTermBtn({currentTerm, fetchTerms}){
             onClick={() => setIsOpen(true)}
             className="px-1 text-green-600 transition-all hover:opacity-75"
         >
-            <TbEditCircle className="size-6" />
+            <TbEditCircle className="size-5" />
         </button>
         <Modal 
             title="تعديل الفصل"

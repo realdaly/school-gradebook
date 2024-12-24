@@ -32,7 +32,10 @@ export default function GradeTable({students, subjects, getStudents, classId}){
     }, []);
 
     return (
-        <div className="w-full max-w-7xl mx-auto py-4 overflow-x-auto">
+        <div 
+            id="GradeTable"
+            className="w-full max-w-7xl mx-auto py-4 overflow-x-auto"
+        >
             <div className="inline-block min-w-full">
                 <TableHeader 
                     accentColor={accentColor}

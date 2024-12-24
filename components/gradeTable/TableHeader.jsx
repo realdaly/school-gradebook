@@ -2,7 +2,7 @@ import DropdownMenu from "@/components/ui/DropdownMenu";
 import { useRef } from "react";
 import RightClickMenu from "@/components/ui/RightClickMenu";
 import { IoMdArrowDropdown } from "react-icons/io";
-import DeleteAllTermMarks from "../classpage/DeleteAllTermMarksBtn";
+import DeleteAllTermMarks from "@/components/gradeTable/DeleteAllTermMarksBtn";
 
 export default function TableHeader({accentColor, currentTerm, terms, setCurrentTerm, classId, getMarks}){
     const RightClickMenuTriggerRef = useRef(null);

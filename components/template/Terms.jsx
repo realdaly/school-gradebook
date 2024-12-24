@@ -48,9 +48,8 @@ export default function Terms(){
                 btn={
                     <Button
                         label="عناوين حقول الدرجات"
-                        style="border"
                     >
-                        <BsFileEarmarkSpreadsheetFill className="size-5" />
+                        <BsFileEarmarkSpreadsheetFill className="size-4" />
                     </Button>
                 }
                 menuStyle="rounded-3xl"

@@ -4,7 +4,7 @@ import Header from "@/components/template/Header";
 import initDatabase from "@/db/initDatabase";
 import Breadcrumb from "@/components/template/Breadcrumb";
 
-export default function Layout({children, beadcrumb}){
+export default function Layout({children, beadcrumb, tools}){
     const [isLoading, setIsLoading] = useState(true);
 
     async function createDatabaseTables(){
@@ -20,7 +20,9 @@ export default function Layout({children, beadcrumb}){
     return(
         <>
             <Header />
-            <Breadcrumb>
+            <Breadcrumb
+                tools={tools}
+            >
                 {beadcrumb}
             </Breadcrumb>
             
