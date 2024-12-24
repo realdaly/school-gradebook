@@ -18,7 +18,7 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
 
     const addMark = async (event, subjectId, studentId) => {
         event.preventDefault();
-        await createMarks(classId, subjectId, studentId, currentTerm.mark_ref, mark);
+        await createMarks(classId, subjectId, studentId, currentTerm?.mark_ref, mark);
         await getMarks();
         setMark("");
         setIsAlert(true);
@@ -80,11 +80,11 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
 
                         // round mark value before displaying it if there's value, else return empty string
                         const markValue = currentMark?.[currentTerm?.mark_ref] != null 
-                            ? Math.round(currentMark[currentTerm.mark_ref]) 
+                            ? Math.round(currentMark[currentTerm?.mark_ref]) 
                             : "";
 
                             // render non-editable field if mark is not supposed to be edited manually
-                            if(currentTerm.mark_ref == "average_mark" || currentTerm.mark_ref == "final_mark" || currentTerm.mark_ref == "final_mark_after_second_try"){
+                            if(currentTerm?.mark_ref == "average_mark" || currentTerm?.mark_ref == "final_mark" || currentTerm?.mark_ref == "final_mark_after_second_try"){
                                 return(
                                     <div
                                         key={gradeIndex}
@@ -165,7 +165,7 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
                 >
                     <div className="absolute bg-white border border-black shadow-md rounded-md min-w-28">
                         <DeleteCurrentMarkBtn 
-                            currentTerm={currentTerm.mark_ref}
+                            currentTerm={currentTerm?.mark_ref}
                             getMarks={getMarks}
                             markId={mark}    
                             closeMenu={closeMenus}

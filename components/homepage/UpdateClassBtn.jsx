@@ -8,7 +8,7 @@ export default function UpdateClassBtn({currentClass, fetchClasses}){
     let [isOpen, setIsOpen] = useState(false);
     let [className, setClassName] = useState(currentClass.title);
     let [classTheme, setClassTheme] = useState(currentClass.theme);
-    let [isLiterary, setIsLiterary] = useState(currentClass.is_literary == "false" ? false : true);   
+    let [isLiterary, setIsLiterary] = useState(currentClass.is_literary == "false" ? false : true);
 
     const submitFunc = async () => {
         setIsOpen(false);

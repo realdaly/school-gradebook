@@ -17,6 +17,7 @@
     "fs:allow-copy-file",
     "fs:allow-open",
     "dialog:allow-open",
+    "core:webview:allow-set-webview-zoom",
     {
       "identifier": "fs:scope",
       "allow": [
@@ -24,7 +25,6 @@
           "path": "$APPDATA/*"
         }
       ]
-    },
-    "dialog:default"
+    }
   ]
 }

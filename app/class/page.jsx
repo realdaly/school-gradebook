@@ -6,6 +6,7 @@ import BreadcrumbBtn from "@/components/template/BreadcrumbBtn";
 import { IoMdArrowDropleft } from "react-icons/io";
 import StudentsMarks from "@/components/classpage/StudentsMarks";
 import PrintBtn from "@/components/template/PrintBtn";
+import ZoomBtns from "@/components/template/ZoomBtns";
 
 export default function Page(){
     const [isLoading, setIsLoading] = useState(true);
@@ -39,7 +40,10 @@ export default function Page(){
         <Layout 
             beadcrumb={breadcrumb}
             tools={
-                <PrintBtn />
+                <>
+                    <ZoomBtns />
+                    <PrintBtn />
+                </>
             }
         >
             {
