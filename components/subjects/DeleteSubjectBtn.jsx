@@ -3,13 +3,13 @@ import Modal from "@/components/ui/Modal";
 import { TiDelete } from "react-icons/ti";
 import deleteSubject from "@/utils/subjects/deleteSubject";
 
-export default function DeleteSubjectBtn({currentSubject, fetchSubjects}){
+export default function DeleteSubjectBtn({currentSubject, getSubjects}){
     let [isOpen, setIsOpen] = useState(false);
 
     const submitFunc = async () => {
         setIsOpen(false);
         await deleteSubject(currentSubject.id);
-        await fetchSubjects();
+        await getSubjects();
     }
 
     return(

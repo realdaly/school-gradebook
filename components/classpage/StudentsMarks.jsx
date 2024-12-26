@@ -3,18 +3,19 @@ import readStudents from "@/utils/classpage/readStudents";
 import CreateStudentsBtn from "@/components/classpage/CreateStudentsBtn";
 import GradeTable from "@/components/classpage/GradeTable";
 import readSubjects from "@/utils/subjects/readSubjects";
+import { useTheme } from "@/components/template/ConfigContext";
 
-export default function StudentsMarks({classId, isLiterary}){
-    let [subjects, setSubjects] = useState([]);
+export default function StudentsMarks({classId, classLabel, isLiterary}){
+    const { subjects, accentColor } = useTheme();
+    let [classSubjects, setClassSubjects] = useState([]);
     let [students, setStudents] = useState([]);    
 
     // filter subjects before passing them to GradeTable
-    async function getSubjects() {
-        const fetchedSubjects = await readSubjects();
-        const filteredSubjects = fetchedSubjects.filter(
+    async function filterClassSubjects() {
+        const filteredSubjects = subjects?.filter(
             subject => subject.is_literary == isLiterary
         );
-        setSubjects(filteredSubjects);
+        setClassSubjects(filteredSubjects);
     }
 
     async function getStudents(){
@@ -23,17 +24,19 @@ export default function StudentsMarks({classId, isLiterary}){
     };
 
     useEffect(() => {
-        getSubjects();
+        filterClassSubjects();
         getStudents(setStudents);
-    }, []);
+    }, [subjects]);
 
     return(
         <div className="pb-5">
             <GradeTable
-                subjects={subjects}
+                subjects={classSubjects}
                 students={students}
                 getStudents={getStudents}
                 classId={classId}
+                classLabel={classLabel}
+                isLiterary={isLiterary}
             />
             <CreateStudentsBtn 
                 classId={classId}

@@ -6,8 +6,9 @@ import SuccessAlert from "@/components/template/SuccessAlert";
 import UpdateStudentBtn from "@/components/gradeTable/UpdateStudentBtn";
 import DeleteStudentBtn from "@/components/gradeTable/DeleteStudentBtn";
 import DeleteCurrentMarkBtn from "./DeleteCurrentMarkBtn";
+import Link from "next/link";
 
-export default function StudentsAndGrades({students, subjects, marks, currentTerm, getStudents, getMarks, classId}){
+export default function StudentsAndGrades({students, subjects, marks, currentTerm, getStudents, getMarks, classId, classLabel, isLiterary}){
     const [isAlert, setIsAlert] = useState(false);
     const [studentMenu, setStudentMenu] = useState(false);
     const [markMenu, setMarkMenu] = useState(false);
@@ -64,13 +65,14 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
                     <div className={`w-8 px-1 py-1 text-center ${student.notes != "" && student.notes != null ? "bg-amber-200" : ""}`}>
                         {studentIndex + 1}
                     </div>
-                    <div
+                    <Link
+                        href={`student?classlabel=${classLabel}&classid=${classId}&isliterary=${isLiterary}&studentid=${student.id}&studentname=${student.name}`}
                         title={student.name}
                         className="min-w-[195px] max-w-[195px] overflow-clip px-2 py-1 border-r border-black/30 text-right whitespace-nowrap flex-shrink-0"
                         onContextMenu={e => handleStudentMenu(e, student)}
                     >
                         {student.name}
-                    </div>
+                    </Link>
                     {subjects.map((subject, gradeIndex) => {
                         const currentMark = marks.find(
                             (termMark) =>
@@ -116,6 +118,7 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
                                         <form
                                             key={gradeIndex}
                                             onSubmit={e => addMark(e, subject.id, student.id)}
+                                            onContextMenu={e => handleMarkMenu(e, currentMark?.id)}
                                         >
                                             <input
                                                 type="text"
@@ -168,7 +171,7 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
                             currentTerm={currentTerm?.mark_ref}
                             getMarks={getMarks}
                             markId={mark}    
-                            closeMenu={closeMenus}
+                            closeMenu={() => setMarkMenu(false)}
                         />
                     </div>
                 </div>

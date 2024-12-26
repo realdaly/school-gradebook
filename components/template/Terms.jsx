@@ -7,39 +7,34 @@ import readTerms from "@/utils/terms/readTerms";
 import createTerm from "@/utils/terms/createTerm";
 import TermBtn from "@/components/terms/TermBtn";
 import { defaultTermsArray } from "@/data/defaultTermsArray";
+import { useTheme } from "@/components/template/ConfigContext";
 
 export default function Terms(){
-    let [terms, setTerms] = useState([]);
-
+    const { terms, getTerms } = useTheme();
     let [isOpen, setIsOpen] = useState(false);
     let [termTitle, setTermTitle] = useState("");
-
-    async function fetchTerms(){
-        const fetchedTerms = await readTerms();
-        setTerms(fetchedTerms);
-    };
 
     const submitFunc = async () => {
         setIsOpen(false);
         await createTerm(termTitle);
-        await fetchTerms();
+        await getTerms();
         setTermTitle("");
     }
 
     const createDefaultTerms = async () => {
         const fetchedTerms = await readTerms();
         
-        if(!fetchedTerms.length > 0){
+        if(fetchedTerms && !fetchedTerms.length > 0){
             for(const defaultTerm of defaultTermsArray){
                 await createTerm(defaultTerm.title, defaultTerm.markRef);
             }
-            fetchTerms(); //fetch terms again to update the state
+            getTerms(); //fetch terms again to update the state
         }
     }
 
     useEffect(() => {
         createDefaultTerms();
-        fetchTerms(setTerms); 
+        getTerms(); 
     }, []);
 
     return(
@@ -60,7 +55,7 @@ export default function Terms(){
                     >
                         <TermBtn  
                             currentTerm={term}
-                            fetchTerms={fetchTerms}
+                            getTerms={getTerms}
                         />
                     </div>
                 ))}

@@ -1,26 +1,17 @@
-import readSubjects from "@/utils/subjects/readSubjects";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ImBooks } from "react-icons/im";
 import Button from "@/components/ui/Button";
 import SubjectItem from "@/components/subjects/SubjectItem";
 import Modal from "@/components/ui/Modal";
 import CreateSubjectBtn from "@/components/subjects/CreateSubjectBtn";
+import { useTheme } from "@/components/template/ConfigContext";
 
 export default function Subjects(){
-    let [subjects, setSubjects] = useState([]);
+    const { subjects, getSubjects } = useTheme();
     let [isOpen, setIsOpen] = useState(false);
 
-    async function fetchSubjects(){
-        const fetchedSubjects = await readSubjects();
-        setSubjects(fetchedSubjects);
-    };
-
-    const scientificSubjects = subjects.filter(subject => subject.is_literary == "false");
-    const literarySubjects = subjects.filter(subject => subject.is_literary == "true");
-
-    useEffect(() => {
-       fetchSubjects(setSubjects); 
-    }, []);
+    const scientificSubjects = subjects?.filter(subject => subject.is_literary == "false");
+    const literarySubjects = subjects?.filter(subject => subject.is_literary == "true");
 
     return(
         <>
@@ -39,18 +30,18 @@ export default function Subjects(){
                 submitFunc={() => setIsOpen(false)}
             >
                 <div className="flex items-start justify-between gap-x-10">
-                    {renderSubjectsContainer("مواد العلمي", scientificSubjects, fetchSubjects)}
-                    {renderSubjectsContainer("مواد الأدبي", literarySubjects, fetchSubjects)}
+                    {renderSubjectsContainer("مواد العلمي", scientificSubjects, getSubjects)}
+                    {renderSubjectsContainer("مواد الأدبي", literarySubjects, getSubjects)}
                 </div>
                 <CreateSubjectBtn 
-                    fetchSubjects={fetchSubjects}
+                    getSubjects={getSubjects}
                 />
             </Modal>
         </>
     );
 }
 
-function renderSubjectsContainer(title, filteredSubjects, fetchSubjects){
+function renderSubjectsContainer(title, filteredSubjects, getSubjects){
     return(
         <div>
             <p className="text-xl text-center">{title}</p>
@@ -58,11 +49,11 @@ function renderSubjectsContainer(title, filteredSubjects, fetchSubjects){
                 {filteredSubjects?.length == 0 && 
                     <p className="w-60 text-center py-1">القائمة فارغة.</p>
                 }
-                {filteredSubjects.map(subject => (
+                {filteredSubjects?.map(subject => (
                     <SubjectItem  
                         key={subject.id}
                         currentSubject={subject}
-                        fetchSubjects={fetchSubjects}
+                        getSubjects={getSubjects}
                     />
                 ))}
             </div>

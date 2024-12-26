@@ -3,14 +3,14 @@ import Modal from "@/components/ui/Modal";
 import { TbEditCircle } from "react-icons/tb";
 import updateSubject from "@/utils/subjects/updateSubject";
 
-export default function UpdateSubjectBtn({currentSubject, fetchSubjects}){
+export default function UpdateSubjectBtn({currentSubject, getSubjects}){
     let [isOpen, setIsOpen] = useState(false);
     let [subjectTitle, setSubjectTitle] = useState(currentSubject.title);
     let [isLiterary, setIsLiterary] = useState(currentSubject.is_literary == "false" ? false : true);
 
     const submitFunc = async () => {
         await updateSubject(subjectTitle, isLiterary, currentSubject.id);
-        await fetchSubjects();
+        await getSubjects();
         setIsOpen(false);
         setSubjectTitle(prev => prev);
     }

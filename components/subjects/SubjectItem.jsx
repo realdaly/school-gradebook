@@ -1,7 +1,7 @@
 import DeleteSubjectBtn from "@/components/subjects/DeleteSubjectBtn";
 import UpdateSubjectBtn from "@/components/subjects/UpdateSubjectBtn";
 
-export default function SubjectItem({currentSubject, fetchSubjects}){
+export default function SubjectItem({currentSubject, getSubjects}){
     return(
         <div 
             className="px-4 py-1 even:bg-domI text-lg hover:text-black cursor-default flex items-center gap-x-3"
@@ -14,11 +14,11 @@ export default function SubjectItem({currentSubject, fetchSubjects}){
             <div className="flex items-center">
                 <UpdateSubjectBtn 
                     currentSubject={currentSubject}
-                    fetchSubjects={fetchSubjects}
+                    getSubjects={getSubjects}
                 />
                 <DeleteSubjectBtn
                     currentSubject={currentSubject}
-                    fetchSubjects={fetchSubjects}
+                    getSubjects={getSubjects}
                 />
             </div>
         </div>

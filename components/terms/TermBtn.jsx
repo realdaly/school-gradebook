@@ -1,10 +1,14 @@
 import UpdateTermBtn from "@/components/terms/UpdateTermBtn";
 import DeleteTermBtn from "@/components/terms/DeleteTermBtn";
+import { useState } from "react";
 
-export default function TermBtn({currentTerm, fetchTerms}){
+export default function TermBtn({currentTerm, getTerms}){
+    let [isOpen, setIsOpen] = useState(false);
+
     return(
         <div 
-            className="pr-5 pl-3 py-1 text-xl first:pt-2 transition-all hover:bg-comp hover:text-black cursor-default flex items-center justify-between gap-x-3"
+            onClick={() => setIsOpen(true)}
+            className="pr-5 pl-3 py-0.5 text-lg first:pt-2 transition-all hover:bg-comp hover:text-black cursor-default flex items-center justify-between gap-x-3 cursor-pointer"
         >
             <div
                 className="w-max line-clamp-1"
@@ -14,11 +18,13 @@ export default function TermBtn({currentTerm, fetchTerms}){
             <div className="flex items-center">
                 <UpdateTermBtn 
                     currentTerm={currentTerm}
-                    fetchTerms={fetchTerms}
+                    getTerms={getTerms}
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
                 />
                 {/* <DeleteTermBtn
                     currentTerm={currentTerm}
-                    fetchTerms={fetchTerms}
+                    getTerms={getTerms}
                 /> */}
             </div>
         </div>

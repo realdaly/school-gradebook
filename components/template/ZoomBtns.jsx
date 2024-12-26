@@ -17,12 +17,12 @@ export default function ZoomBtns(){
     };
 
     const zoomIn = () => {
-        const newZoom = zoomLevel + 0.1; // Increase zoom by 0.1
+        const newZoom = zoomLevel + 0.03; // Increase zoom by 0.03
         updateZoom(newZoom);
     };
 
     const zoomOut = () => {
-        const newZoom = Math.max(0.1, zoomLevel - 0.1); // Decrease zoom by 0.1 but not below 0.1
+        const newZoom = Math.max(0.03, zoomLevel - 0.03); // Decrease zoom by 0.03 but not below 0.03
         updateZoom(newZoom);
     };
 

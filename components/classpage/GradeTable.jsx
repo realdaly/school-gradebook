@@ -1,22 +1,14 @@
 import { useEffect, useState } from "react";
-import readTerms from "@/utils/terms/readTerms";
 import { useTheme } from "@/components/template/ConfigContext";
 import readMarks from "@/utils/marks/readMarks";
 import TableHeader from "@/components/gradeTable/TableHeader";
 import SubjectsRow from "@/components/gradeTable/SubjectsRow";
 import StudentsAndGrades from "@/components/gradeTable/StudentsAndGrades";
 
-export default function GradeTable({students, subjects, getStudents, classId}){
-    const { accentColor } = useTheme();
-    let [terms, setTerms] = useState([]);
+export default function GradeTable({students, subjects, getStudents, classId, classLabel, isLiterary}){
+    const { terms, getTerms, accentColor } = useTheme();
     let [marks, setMarks] = useState([]);
-    let [currentTerm, setCurrentTerm] = useState();
-
-    async function getTerms(){
-        const fetchedTerms = await readTerms();
-        setCurrentTerm(fetchedTerms[0])
-        setTerms(fetchedTerms);
-    };
+    let [currentTerm, setCurrentTerm] = useState(terms && terms[0]);
 
     async function getMarks(){
         const fetchedMarks = await readMarks(classId);        
@@ -27,9 +19,11 @@ export default function GradeTable({students, subjects, getStudents, classId}){
         getMarks();
     }, [currentTerm]);
 
+
+    // on terms change set currentTerm to updated term value from the newly changed terms
     useEffect(() => {
-        getTerms();
-    }, []);
+        setCurrentTerm(prev => terms.find(term => term.id == prev.id));
+    }, [terms])
 
     return (
         <div 
@@ -62,6 +56,8 @@ export default function GradeTable({students, subjects, getStudents, classId}){
                     getStudents={getStudents}
                     getMarks={getMarks}
                     classId={classId}
+                    classLabel={classLabel}
+                    isLiterary={isLiterary}
                 />             
             </div>
         </div>

@@ -3,13 +3,13 @@ import Modal from "@/components/ui/Modal";
 import { TiDelete } from "react-icons/ti";
 import deleteTerm from "@/utils/terms/deleteTerm";
 
-export default function DeleteTermBtn({currentTerm, fetchTerms}){
+export default function DeleteTermBtn({currentTerm, getTerms}){
     let [isOpen, setIsOpen] = useState(false);
 
     const submitFunc = async () => {
         setIsOpen(false);
         await deleteTerm(currentTerm.id);
-        await fetchTerms();
+        await getTerms();
     }
 
     return(

@@ -4,9 +4,9 @@ import Loader from "@/components/ui/Loader";
 import Layout from "@/components/template/Layout";
 import BreadcrumbBtn from "@/components/template/BreadcrumbBtn";
 import { IoMdArrowDropleft } from "react-icons/io";
-import StudentsMarks from "@/components/classpage/StudentsMarks";
 import PrintBtn from "@/components/template/PrintBtn";
 import ZoomBtns from "@/components/template/ZoomBtns";
+import StudentTable from "@/components/studentpage/StudentTable";
 
 export default function Page(){
     const [isLoading, setIsLoading] = useState(true);
@@ -15,6 +15,7 @@ export default function Page(){
     const classId = searchParams?.get("classid");
     const classLabel = searchParams?.get("classlabel");
     const isLiterary = searchParams?.get("isliterary");
+    const studentName = searchParams?.get("studentname");
     
     const breadcrumb = (
         <>
@@ -23,6 +24,10 @@ export default function Page(){
                 label={classLabel} 
             />
             <IoMdArrowDropleft />
+            <BreadcrumbBtn 
+                href=""
+                label={studentName} 
+            />
         </>
     );
 
@@ -50,9 +55,7 @@ export default function Page(){
                 isLoading ? 
                     <Loader />
                 :
-                <StudentsMarks 
-                    classId={classId} 
-                    classLabel={classLabel}
+                <StudentTable
                     isLiterary={isLiterary}
                 />
             }

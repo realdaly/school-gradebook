@@ -11,6 +11,7 @@ export default function DeleteAllTermMarks({currentTerm, classId, getMarks}){
         await deleteAllTermMarks(currentTerm, classId)
         await getMarks();
     }
+    
     return(
         <>
             <button

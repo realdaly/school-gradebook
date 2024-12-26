@@ -4,7 +4,7 @@ import Modal from "@/components/ui/Modal";
 import createSubject from "@/utils/subjects/createSubject";
 import Button from "@/components/ui/Button";
 
-export default function CreateSubjectBtn({fetchSubjects}){
+export default function CreateSubjectBtn({getSubjects}){
     let [isOpen, setIsOpen] = useState(false);
 
     let [subjectName, setSubjectName] = useState("");
@@ -13,7 +13,7 @@ export default function CreateSubjectBtn({fetchSubjects}){
     const submitFunc = async () => {
         setIsOpen(false);
         await createSubject(subjectName, isLiterary);
-        await fetchSubjects();
+        await getSubjects();
         setSubjectName("");
     }
 
