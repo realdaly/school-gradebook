@@ -9,6 +9,9 @@ export default async function initDatabase(){
         CREATE TABLE IF NOT EXISTS "config" (
             "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
             "title" VARCHAR(1000) DEFAULT NULL,
+            "school" VARCHAR(1000) DEFAULT NULL,
+            "year" VARCHAR(255) DEFAULT NULL,
+            "principal" VARCHAR(255) DEFAULT NULL,
             "accentColor" VARCHAR(20) DEFAULT NULL
         );
     `);
@@ -48,6 +51,8 @@ export default async function initDatabase(){
             "name" VARCHAR(255) NOT NULL,
             "reg_num" VARCHAR(20) DEFAULT NULL,
             "notes" TEXT DEFAULT NULL,
+            "first_try_result" VARCHAR(512) DEFAULT NULL,
+            "second_try_result" VARCHAR(512) DEFAULT NULL,
             "class_id" INTEGER NOT NULL,
             FOREIGN KEY ("class_id") REFERENCES "class" ("id") ON DELETE CASCADE
         );

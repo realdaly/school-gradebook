@@ -1,6 +1,13 @@
 import { Description, Dialog, DialogBackdrop, DialogPanel, DialogTitle } from "@headlessui/react";
 
-export default function Modal({isOpen, setIsOpen, title, desc, sumbitLabel, submitFunc, isDanger, children}){
+export default function Modal({isOpen, setIsOpen, title, desc, sumbitLabel, submitFunc, isDanger, close, children}){
+    const closeFunc = () => {
+        setIsOpen(false);
+        if(close){
+            close();
+        }
+    }
+
     return(
         <Dialog 
             open={isOpen} 
@@ -19,7 +26,7 @@ export default function Modal({isOpen, setIsOpen, title, desc, sumbitLabel, subm
                     <div className="flex gap-4">
                         <button
                             className="text-white bg-zinc-400 py-0.5 px-3 rounded-full block mx-auto transition-all hover:opacity-75" 
-                            onClick={() => setIsOpen(false)}
+                            onClick={() => closeFunc()}
                         >
                             إلغاء
                         </button>

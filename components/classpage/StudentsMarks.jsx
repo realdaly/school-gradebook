@@ -6,7 +6,7 @@ import readSubjects from "@/utils/subjects/readSubjects";
 import { useTheme } from "@/components/template/ConfigContext";
 
 export default function StudentsMarks({classId, classLabel, isLiterary}){
-    const { subjects, accentColor } = useTheme();
+    const { subjects } = useTheme();
     let [classSubjects, setClassSubjects] = useState([]);
     let [students, setStudents] = useState([]);    
 

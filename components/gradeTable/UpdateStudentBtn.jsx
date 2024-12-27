@@ -37,6 +37,7 @@ export default function UpdateStudentBtn({currentStudent, getStudents, closeMenu
             isOpen={isOpen}
             setIsOpen={setIsOpen}
             submitFunc={submitFunc}
+            close={closeMenu}
         >
             <form 
                 className="flex flex-col items-center gap-3"

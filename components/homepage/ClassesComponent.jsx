@@ -1,7 +1,7 @@
 "use client";
 import ClassCard from "@/components/homepage/ClassCard";
 
-export default function Classes({classes, fetchClasses}){
+export default function ClassesComponent({classes, fetchClasses}){
     return(
         <div className="pb-5">
             {

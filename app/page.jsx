@@ -1,5 +1,5 @@
 "use client";
-import Classes from "@/components/homepage/Classes";
+import ClassesComponent from "@/components/homepage/ClassesComponent";
 import CreateClassBtn from "@/components/homepage/CreateClassBtn";
 import Layout from "@/components/template/Layout";
 import readClasses from "@/utils/homepage/readClasses";
@@ -18,7 +18,7 @@ export default function Page(){
 
     return(
         <Layout>
-            <Classes 
+            <ClassesComponent 
                 classes={classes}
                 fetchClasses={fetchClasses}
             />

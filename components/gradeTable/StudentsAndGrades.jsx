@@ -35,10 +35,10 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
 
     const handleStudentMenu = (e, student) => {        
         e.preventDefault();
+        setCurrentStudent(student);
         setStudentMenu(true);
         setMarkMenu(false);
         setMenuPosition({x: e.pageX, y: e.pageY});
-        setCurrentStudent(student);
     };
 
     const handleMarkMenu = (e, mark) => {        
@@ -46,7 +46,6 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
         setMarkMenu(true);
         setStudentMenu(false);
         setMenuPosition({x: e.pageX, y: e.pageY});
-        // setCurrentStudent(student);
         setMark(mark);
     };
 

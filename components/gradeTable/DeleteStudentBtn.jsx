@@ -34,6 +34,7 @@ export default function DeleteStudentBtn({currentStudent, getStudents, closeMenu
             setIsOpen={setIsOpen}
             submitFunc={submitFunc}
             isDanger={true}
+            close={closeMenu}
         />
     </>
     );
