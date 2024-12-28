@@ -9,14 +9,25 @@ const ConfigContext = createContext()
 export const ThemeProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
+    // config states
     const [title, setTitle] = useState("");
+    const [school, setSchool] = useState("");
+    const [year, setYear] = useState("");
+    const [principal, setPrincipal] = useState("");
     const [accentColor, setAccentColor] = useState("accent1");
 
     let [subjects, setSubjects] = useState([]);
     let [terms, setTerms] = useState([]);
 
     async function getConfig(){
-        await readConfig(setTitle, accentColor, setAccentColor);
+        await readConfig(
+                setTitle, 
+                setSchool,
+                setYear, 
+                setPrincipal, 
+                accentColor, 
+                setAccentColor
+        );
         setLoading(false);
     }
 
@@ -41,6 +52,12 @@ export const ThemeProvider = ({ children }) => {
         value={{ 
             title,
             setTitle,
+            school,
+            setSchool,
+            year,
+            setYear,
+            principal,
+            setPrincipal,
             accentColor, 
             setAccentColor,
             loading,

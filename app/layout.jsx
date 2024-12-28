@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
     return (
       <ThemeProvider>
         <html lang="ar" dir="rtl" className={zain.className}>
-          <body>{children}</body>
+          <body className="relative">{children}</body>
         </html>
       </ThemeProvider>
     );

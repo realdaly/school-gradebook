@@ -15,6 +15,7 @@ export default function Page(){
     const classId = searchParams?.get("classid");
     const classLabel = searchParams?.get("classlabel");
     const isLiterary = searchParams?.get("isliterary");
+    const studentId = searchParams?.get("studentid");
     const studentName = searchParams?.get("studentname");
     
     const breadcrumb = (
@@ -57,6 +58,7 @@ export default function Page(){
                 :
                 <StudentTable
                     isLiterary={isLiterary}
+                    studentId={studentId}
                 />
             }
         </Layout>

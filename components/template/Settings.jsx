@@ -1,12 +1,26 @@
 import { useState } from "react";
 import { IoSettingsSharp } from "react-icons/io5";
-import { useTheme } from "./ConfigContext";
+import { useTheme } from "@/components/template/ConfigContext";
 import Modal from "@/components/ui/Modal";
 import updateConfig from "@/utils/updateConfig";
+import SuccessAlert from "@/components/template/SuccessAlert";
 
 export default function Settings(){
-    const { title, setTitle, accentColor, setAccentColor } = useTheme();
+    const { 
+        title, 
+        setTitle, 
+        school,
+        setSchool,
+        year,
+        setYear,
+        principal,
+        setPrincipal,
+        accentColor, 
+        setAccentColor 
+    } = useTheme();
+
     let [isOpen, setIsOpen] = useState(false);
+    let [isAlert, setIsAlert] = useState(false);
     const colors = [
         "accent1",
         "accent2",
@@ -18,7 +32,8 @@ export default function Settings(){
         setTitle(title);
         setAccentColor(accentColor);
         setIsOpen(false);
-        updateConfig(title, accentColor);
+        updateConfig(title, school, year, principal, accentColor);
+        setIsAlert(true);
     }
 
     return(
@@ -31,7 +46,7 @@ export default function Settings(){
                 <IoSettingsSharp className="size-6 text-white transition-all group-hover:rotate-180 " />
             </button>
             <Modal 
-                title="اعدادات التطبيق"
+                title="إعدادات التطبيق"
                 sumbitLabel="تـــــــــم"
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
@@ -40,8 +55,8 @@ export default function Settings(){
                 <form 
                     className="flex flex-col items-center gap-3"
                     onSubmit={e => {
-                        e.preventDefault(),
-                        submitFunc()
+                        e.preventDefault();
+                        submitFunc();
                     }}
                 >
                     <input 
@@ -51,6 +66,27 @@ export default function Settings(){
                         name="title"
                         value={title}
                         data-autofocus
+                    />
+                    <input 
+                        placeholder="المدرسة"
+                        className="py-1 px-4 bg-comp rounded-2xl w-96 border-accent1 border"
+                        onChange={e => setSchool(e.target.value)}
+                        name="school"
+                        value={school}
+                    />
+                    <input 
+                        placeholder="السنة الدراسية"
+                        className="py-1 px-4 bg-comp rounded-2xl w-96 border-accent1 border"
+                        onChange={e => setYear(e.target.value)}
+                        name="year"
+                        value={year}
+                    />
+                    <input 
+                        placeholder="المدير"
+                        className="py-1 px-4 bg-comp rounded-2xl w-96 border-accent1 border"
+                        onChange={e => setPrincipal(e.target.value)}
+                        name="principal"
+                        value={principal}
                     />
                     <div className="flex flex-wrap items-center">
                         {colors.map(color => (
@@ -69,7 +105,12 @@ export default function Settings(){
                     </div>
                     <button type="submit" hidden />
                 </form>
-            </Modal>        
+            </Modal>
+            <SuccessAlert
+                isVisible={isAlert}
+                setIsVisible={setIsAlert}
+                message="تم"
+            />     
         </>
     );
 }
