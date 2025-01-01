@@ -3,31 +3,42 @@ import { useState } from "react";
 import SuccessAlert from "@/components/template/SuccessAlert";
 import updateMarks from "@/utils/marks/updateMarks";
 import handleMarkInput from "@/utils/handleMarkInput";
-// import DeleteCurrentMarkBtn from "../gradeTable/DeleteCurrentMarkBtn";
+import createMarks from "@/utils/marks/createMarks";
+import DeleteCurrentMarkBtn from "@/components/gradeTable/DeleteCurrentMarkBtn";
 
-export default function TableBody({classSubjects, terms, studentMarks, getStudentMarks}){
-  const [isAlert, setIsAlert] = useState(false);
-  const [mark, setMark] = useState();
+export default function TableBody({classId, studentId, classSubjects, terms, studentMarks, getStudentMarks, markMenu, setMarkMenu, setEmptyAllMenu}){
+    const [isAlert, setIsAlert] = useState(false);
+    const [currentTerm, setCurrentTerm] = useState();
+    const [mark, setMark] = useState();
 
-  // const [markMenu, setMarkMenu] = useState(false);
-  // const [menuPosition, setMenuPosition] = useState();
+    const [menuPosition, setMenuPosition] = useState();
 
-  // const handleMarkMenu = (e, mark) => {        
-  //   e.preventDefault();
-  //   setMarkMenu(true);
-  //   setMenuPosition({x: e.pageX, y: e.pageY});
-  //   setMark(mark);
-  // };
+    const handleMarkMenu = (e, term, mark) => {        
+      e.preventDefault();
+      setEmptyAllMenu(false);
+      setMarkMenu(true);
+      setMenuPosition({x: e.pageX, y: e.pageY});
+      setCurrentTerm(term);
+      setMark(mark);
+    };
 
-  const changeMark = async (event, term, currentMark) => {        
-    event.preventDefault();
-    await updateMarks([term?.mark_ref], mark, currentMark);
-    await getStudentMarks();
-    setMark("");
-    setIsAlert(true);
-  }
+    const addMark = async (event, subjectId, term) => {
+        event.preventDefault();
+        await createMarks(classId, subjectId, studentId, term?.mark_ref, mark);
+        await getStudentMarks();
+        setMark("");
+        setIsAlert(true);
+    }
 
-  return(
+    const changeMark = async (event, term, currentMark) => {        
+        event.preventDefault();
+        await updateMarks(term?.mark_ref, mark, currentMark);
+        await getStudentMarks();
+        setMark("");
+        setIsAlert(true);
+    }
+
+    return(
     <>
         {classSubjects?.map(subject => (
         <div 
@@ -65,22 +76,10 @@ export default function TableBody({classSubjects, terms, studentMarks, getStuden
                 // render edit form if there's a mark already
                 if(currentMark){
                 return (
-                    // <form
-                    //     key={gradeIndex}
-                    //     onSubmit={e => changeMark(e, currentMark?.id)}
-                    //     onContextMenu={e => handleMarkMenu(e, currentMark?.id)}
-                    // >
-                    //     <input
-                    //         type="text"
-                    //         maxLength={3}
-                    //         onKeyDown={e => handleMarkInput(e, setMark)}
-                    //         placeholder={markValue}
-                    //         className={`min-w-[105px] max-w-[105px] px-2 py-1 border-r border-black/30 text-center placeholder:text-black cursor-cell ${markValue != "" && markValue < 50 ? "bg-danger/40" : ""}`}
-                    //     />
-                    // </form>
                     <form 
                         key={gradeIndex}
                         onSubmit={e => changeMark(e, term, currentMark?.id)}
+                        onContextMenu={e => handleMarkMenu(e, term, currentMark?.id)}
                     >
                         <input
                             type="text"
@@ -93,31 +92,49 @@ export default function TableBody({classSubjects, terms, studentMarks, getStuden
                 );
                 } else {
                     return(
-                        // <form
-                        //     key={gradeIndex}
-                        //     onSubmit={e => addMark(e, subject.id, student.id)}
-                        //     onContextMenu={e => handleMarkMenu(e, currentMark?.id)}
-                        // >
-                        //     <input
-                        //         type="text"
-                        //         maxLength={3}
-                        //         onKeyDown={e => handleMarkInput(e, setMark)}
-                        //         placeholder={markValue}
-                        //         className="min-w-[105px] max-w-[105px] px-2 py-1 border-r border-black/30 text-center placeholder:text-black cursor-cell"
-                        //     />
-                        // </form>
-                        <p key={gradeIndex}>asd</p>
+                        <form 
+                            key={gradeIndex}
+                            onSubmit={e => addMark(e, subject?.id, term)}
+                            onContextMenu={e => handleMarkMenu(e, term, currentMark?.id)}
+                        >
+                            <input
+                                type="text"
+                                maxLength={3}
+                                onKeyDown={e => handleMarkInput(e, setMark)}
+                                placeholder={markValue}
+                                className={`p-2 border-b last:border-l border-black/30 text-center w-16 placeholder:text-black cursor-cell ${markValue != "" && markValue < 50 ? "bg-danger/40" : ""}`}
+                            />
+                        </form>
                     );
                 }
             }
             })}
         </div>
         ))}
+        {/* mark right click menu */}
+        {markMenu && (
+            <div
+                className="absolute z-10 mr-8"
+                style={{
+                    top: `${menuPosition.y}px`,
+                    left: `${menuPosition.x}px`,
+                }}
+            >
+                <div className="absolute bg-white border border-black shadow-md rounded-md min-w-28">
+                    <DeleteCurrentMarkBtn 
+                        currentTerm={currentTerm?.mark_ref}
+                        getMarks={getStudentMarks}
+                        markId={mark}    
+                        closeMenu={() => setMarkMenu(false)}
+                    />
+                </div>
+            </div>
+        )}
         <SuccessAlert
             isVisible={isAlert}
             setIsVisible={setIsAlert}
             message="تم"
         />
     </>
-  );
+    );
 }

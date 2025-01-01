@@ -57,6 +57,7 @@ export default function Page(){
                     <Loader />
                 :
                 <StudentTable
+                    classId={classId}
                     isLiterary={isLiterary}
                     studentId={studentId}
                 />

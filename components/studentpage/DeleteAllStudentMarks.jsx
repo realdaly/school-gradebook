@@ -1,15 +1,16 @@
 import { BsEraserFill } from "react-icons/bs";
 import Modal from "@/components/ui/Modal";
 import { useState } from "react";
-import deleteAllTermMarks from "@/utils/marks/deleteAllTermMarks";
+import emptyAllStudentMarks from "@/utils/studentpage/emptyAllStudentMarks";
 
-export default function DeleteAllTermMarks({currentTerm, classId, getMarks}){
+export default function DeleteAllStudentMarks({studentId, getMarks, setEmptyAllMenu}){
     const [isOpen, setIsOpen] = useState(false);
 
     const submitFunc = async () => {
         setIsOpen(false);
-        await deleteAllTermMarks(currentTerm, classId);
+        await emptyAllStudentMarks(studentId);
         await getMarks();
+        setEmptyAllMenu(false);
     }
     
     return(
@@ -19,9 +20,9 @@ export default function DeleteAllTermMarks({currentTerm, classId, getMarks}){
                     e.stopPropagation(); // Prevent the parent click event
                     setIsOpen(true);
                 }}
-                className="text-green-600 transition-all hover:opacity-75 flex justify-between w-full font-bold hover:bg-comp/50 px-2 py-1"
+                className="text-green-600 transition-all hover:opacity-75 flex justify-between gap-x-1 font-bold hover:bg-comp/50 px-2 py-1 w-max"
             >
-                إفراغ جميع الحقول
+                إفراغ جميع حقول الدرجات
                 <BsEraserFill className="size-5" />
             </button>
             <Modal 
