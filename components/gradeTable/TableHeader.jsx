@@ -13,7 +13,7 @@ export default function TableHeader({accentColor, currentTerm, terms, setCurrent
                 btn={
                     <div 
                         ref={RightClickMenuTriggerRef}
-                        className={`bg-${accentColor} text-white px-2 py-1 text-center font-bold text-lg border-b border-black/30 rounded-t-2xl flex items-center justify-center`}
+                        className={`bg-${accentColor ?? "accent1"} text-white px-2 py-1 text-center font-bold text-lg border-b border-black/30 rounded-t-2xl flex items-center justify-center`}
                     >
                         {currentTerm?.title}
                         <IoMdArrowDropdown />
