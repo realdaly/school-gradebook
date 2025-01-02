@@ -3,7 +3,6 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { useTheme } from "@/components/template/ConfigContext";
 import Modal from "@/components/ui/Modal";
 import updateConfig from "@/utils/updateConfig";
-import SuccessAlert from "@/components/template/SuccessAlert";
 
 export default function Settings(){
     const { 
@@ -16,11 +15,11 @@ export default function Settings(){
         principal,
         setPrincipal,
         accentColor, 
-        setAccentColor 
+        setAccentColor,
+        setIsAlert
     } = useTheme();
 
     let [isOpen, setIsOpen] = useState(false);
-    let [isAlert, setIsAlert] = useState(false);
     const colors = [
         "accent1",
         "accent2",
@@ -105,12 +104,7 @@ export default function Settings(){
                     </div>
                     <button type="submit" hidden />
                 </form>
-            </Modal>
-            <SuccessAlert
-                isVisible={isAlert}
-                setIsVisible={setIsAlert}
-                message="تم"
-            />     
+            </Modal>   
         </>
     );
 }

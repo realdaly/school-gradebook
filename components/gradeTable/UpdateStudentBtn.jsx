@@ -3,7 +3,7 @@ import Modal from "@/components/ui/Modal";
 import { TbEditCircle } from "react-icons/tb";
 import updateStudent from "@/utils/classpage/updateStudent";
 
-export default function UpdateStudentBtn({currentStudent, getStudents, closeMenu}){
+export default function UpdateStudentBtn({currentStudent, getStudents, getStudent, closeMenu}){
     let [isOpen, setIsOpen] = useState(false);
     let [studentName, setStudentName] = useState(currentStudent.name);
     let [regNum, setRegNum] = useState(currentStudent.reg_num);
@@ -11,7 +11,12 @@ export default function UpdateStudentBtn({currentStudent, getStudents, closeMenu
 
     const submitFunc = async () => {        
         await updateStudent(studentName, regNum, notes, currentStudent.id);
-        await getStudents();
+        if(getStudents){
+            await getStudents();
+        }
+        if(getStudent){
+            await getStudent();
+        }
         setIsOpen(false);
         setStudentName(prev => prev);
         

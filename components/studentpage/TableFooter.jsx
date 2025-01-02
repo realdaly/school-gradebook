@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import SuccessAlert from "@/components/template/SuccessAlert";
 import updateStudentInfo from "@/utils/studentpage/updateStudentInfo";
+import { useTheme } from "@/components/template/ConfigContext"
 
 export default function TableFooter({studentId, studentInfo}){
-    const [isAlert, setIsAlert] = useState(false);
-
+    const { setIsAlert } = useTheme();
     const [firstTryResult, setFirstTryResult] = useState("");
     const [secondTryResult, setSecondTryResult] = useState("");
 
@@ -51,11 +50,6 @@ export default function TableFooter({studentId, studentInfo}){
                     />
                 </form>
             </div>
-            <SuccessAlert
-                isVisible={isAlert}
-                setIsVisible={setIsAlert}
-                message="تم"
-            />
         </>
     );
 }

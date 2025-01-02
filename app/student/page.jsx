@@ -58,6 +58,7 @@ export default function Page(){
                 :
                 <StudentTable
                     classId={classId}
+                    classLabel={classLabel}
                     isLiterary={isLiterary}
                     studentId={studentId}
                 />

@@ -1,13 +1,13 @@
 import getMarkForSubjectAndTerm from "@/utils/classpage/getMarkForSubjectAndTerm";
 import { useState } from "react";
-import SuccessAlert from "@/components/template/SuccessAlert";
 import updateMarks from "@/utils/marks/updateMarks";
 import handleMarkInput from "@/utils/handleMarkInput";
 import createMarks from "@/utils/marks/createMarks";
 import DeleteCurrentMarkBtn from "@/components/gradeTable/DeleteCurrentMarkBtn";
+import { useTheme } from "@/components/template/ConfigContext";
 
 export default function TableBody({classId, studentId, classSubjects, terms, studentMarks, getStudentMarks, markMenu, setMarkMenu, setEmptyAllMenu}){
-    const [isAlert, setIsAlert] = useState(false);
+    const { setIsAlert } = useTheme();
     const [currentTerm, setCurrentTerm] = useState();
     const [mark, setMark] = useState();
 
@@ -130,11 +130,6 @@ export default function TableBody({classId, studentId, classSubjects, terms, stu
                 </div>
             </div>
         )}
-        <SuccessAlert
-            isVisible={isAlert}
-            setIsVisible={setIsAlert}
-            message="تم"
-        />
     </>
     );
 }

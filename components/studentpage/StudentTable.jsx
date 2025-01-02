@@ -5,8 +5,9 @@ import readStudent from "@/utils/studentpage/readStudent";
 import TableHeader from "@/components/studentpage/TableHeader";
 import TableBody from "@/components/studentpage/TableBody";
 import TableFooter from "@/components/studentpage/TableFooter";
+import InfoContainer from "@/components/studentpage/InfoContainer";
 
-export default function StudentTable({classId, isLiterary, studentId}){
+export default function StudentTable({classId, classLabel, isLiterary, studentId}){
     const { subjects, terms } = useTheme();
     let [studentInfo, setStudentInfo] = useState();
     let [studentMarks, setStudentMarks] = useState([]);
@@ -15,6 +16,7 @@ export default function StudentTable({classId, isLiterary, studentId}){
     // context menu states
     const [markMenu, setMarkMenu] = useState(false);
     const [emptyAllMenu, setEmptyAllMenu] = useState(false);
+    const [studentInfoMenu, setStudentInfoMenu] = useState(false);
 
     // fetch class subjects based on the isLiterary flag
     async function getClassSubjects() {
@@ -38,6 +40,7 @@ export default function StudentTable({classId, isLiterary, studentId}){
     const closeMenus = () => {
       setMarkMenu(false);
       setEmptyAllMenu(false);
+      setStudentInfoMenu(false);
     }
 
     useEffect(() => {
@@ -52,6 +55,14 @@ export default function StudentTable({classId, isLiterary, studentId}){
         id="GradeTable"
         className="w-fit max-w-4xl mx-auto p-4"
       >
+        <InfoContainer
+          studentId={studentId}
+          studentInfo={studentInfo}
+          classLabel={classLabel}
+          studentInfoMenu={studentInfoMenu}
+          setStudentInfoMenu={setStudentInfoMenu}
+          getStudentInfo={getStudentInfo}
+        />
         <div className="flex flex-col w-fit">
           <TableHeader 
             studentId={studentId}

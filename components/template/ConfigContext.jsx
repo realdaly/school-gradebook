@@ -8,6 +8,7 @@ const ConfigContext = createContext()
 
 export const ThemeProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
+    const [isAlert, setIsAlert] = useState(false);
 
     // config states
     const [title, setTitle] = useState("");
@@ -65,7 +66,9 @@ export const ThemeProvider = ({ children }) => {
             subjects,
             getSubjects,
             terms,
-            getTerms
+            getTerms,
+            isAlert,
+            setIsAlert
         }}
     >
         {children}

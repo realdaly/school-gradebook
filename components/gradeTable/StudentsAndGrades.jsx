@@ -2,14 +2,14 @@ import { useState } from "react";
 import handleMarkInput from "@/utils/handleMarkInput";
 import updateMarks from "@/utils/marks/updateMarks";
 import createMarks from "@/utils/marks/createMarks";
-import SuccessAlert from "@/components/template/SuccessAlert";
 import UpdateStudentBtn from "@/components/gradeTable/UpdateStudentBtn";
 import DeleteStudentBtn from "@/components/gradeTable/DeleteStudentBtn";
 import DeleteCurrentMarkBtn from "./DeleteCurrentMarkBtn";
 import Link from "next/link";
+import { useTheme } from "@/components/template/ConfigContext";
 
 export default function StudentsAndGrades({students, subjects, marks, currentTerm, getStudents, getMarks, classId, classLabel, isLiterary}){
-    const [isAlert, setIsAlert] = useState(false);
+    const { setIsAlert } = useTheme();
     const [studentMenu, setStudentMenu] = useState(false);
     const [markMenu, setMarkMenu] = useState(false);
     const [menuPosition, setMenuPosition] = useState();
@@ -175,11 +175,6 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
                     </div>
                 </div>
             )}
-            <SuccessAlert
-                isVisible={isAlert}
-                setIsVisible={setIsAlert}
-                message="تم"
-            />
         </div>
     );
 }
