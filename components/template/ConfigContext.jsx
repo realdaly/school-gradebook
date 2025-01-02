@@ -3,11 +3,13 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import readConfig from "@/utils/readConfig";
 import readSubjects from "@/utils/subjects/readSubjects";
 import readTerms from "@/utils/terms/readTerms";
+import initDatabase from "@/db/initDatabase";
 
 const ConfigContext = createContext()
 
 export const ThemeProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
+    const [firstRun, setFirstRun] = useState(false);
     const [isAlert, setIsAlert] = useState(false);
 
     // config states
@@ -20,16 +22,20 @@ export const ThemeProvider = ({ children }) => {
     let [subjects, setSubjects] = useState([]);
     let [terms, setTerms] = useState([]);
 
+    async function createDatabaseTables(){
+        await initDatabase();
+    }
+
     async function getConfig(){
         await readConfig(
-                setTitle, 
-                setSchool,
-                setYear, 
-                setPrincipal, 
-                accentColor, 
-                setAccentColor
+            setTitle, 
+            setSchool,
+            setYear, 
+            setPrincipal, 
+            accentColor, 
+            setAccentColor,
+            setFirstRun
         );
-        setLoading(false);
     }
 
     async function getSubjects(){
@@ -42,10 +48,16 @@ export const ThemeProvider = ({ children }) => {
         setTerms(fetchedTerms);
     };
 
+    async function initialFunction(){
+        await createDatabaseTables();
+        await getConfig();
+        await getSubjects();
+        await getTerms();
+        setLoading(false);
+    }
+
     useEffect(() => {
-        getConfig();
-        getSubjects();
-        getTerms();
+        initialFunction();
     }, []);
 
     return (
@@ -68,7 +80,8 @@ export const ThemeProvider = ({ children }) => {
             terms,
             getTerms,
             isAlert,
-            setIsAlert
+            setIsAlert,
+            firstRun,
         }}
     >
         {children}

@@ -19,7 +19,7 @@ export default function Page(){
     const breadcrumb = (
         <>
             <BreadcrumbBtn 
-                href={`/class?classlabel=${classLabel}&classid=${classId}&isliterary=${isLiterary}`} 
+                href="" 
                 label={classLabel} 
             />
             <IoMdArrowDropleft />

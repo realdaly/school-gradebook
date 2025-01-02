@@ -17,13 +17,13 @@ export default function InfoContainer({studentInfo, classLabel, studentInfoMenu,
             <div className="relative flex justify-center text-white rounded-t-2xl pb-3">
                 <div className="flex justify-center items-center text-center text-xl w-1/3 bg-slate-500 rounded-2xl p-2">
                     <p className="w-28 line-clamp-5">
-                        {school}
+                        {school ?? "----------------"}
                     </p>
                 </div>
                 <div className="text-center w-1/3 text-black self-center">
                     <p className="text-2xl font-bold">سجل الدرجات</p>
                     <p className="text-xl font-bold">للعام الدراسي</p>
-                    <p className="text-lg">{year}</p>
+                    <p className="text-lg">{year ?? "-------------"}</p>
                 </div>
                 <div 
                     onContextMenu={e => handleStudentInfoMenu(e)}

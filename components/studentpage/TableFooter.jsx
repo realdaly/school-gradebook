@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import updateStudentInfo from "@/utils/studentpage/updateStudentInfo";
-import { useTheme } from "@/components/template/ConfigContext"
+import { useTheme } from "@/components/template/ConfigContext";
 
 export default function TableFooter({studentId, studentInfo}){
-    const { setIsAlert } = useTheme();
+    const { principal, setIsAlert } = useTheme();
     const [firstTryResult, setFirstTryResult] = useState("");
     const [secondTryResult, setSecondTryResult] = useState("");
 
@@ -49,6 +49,12 @@ export default function TableFooter({studentId, studentInfo}){
                         onChange={e => setSecondTryResult(e.target.value)}
                     />
                 </form>
+            </div>
+            <div className="flex justify-end">
+                <div className="flex items-center p-2">
+                    <span className="text-lg font-bold ml-1">المدير: </span>
+                    {principal ?? "---------------------"}
+                </div>
             </div>
         </>
     );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoSettingsSharp } from "react-icons/io5";
 import { useTheme } from "@/components/template/ConfigContext";
 import Modal from "@/components/ui/Modal";
@@ -16,7 +16,8 @@ export default function Settings(){
         setPrincipal,
         accentColor, 
         setAccentColor,
-        setIsAlert
+        setIsAlert,
+        firstRun
     } = useTheme();
 
     let [isOpen, setIsOpen] = useState(false);
@@ -35,6 +36,12 @@ export default function Settings(){
         setIsAlert(true);
     }
 
+    useEffect(() => {
+        if(firstRun == true){
+            setIsOpen(true);
+        }
+    }, [firstRun])
+
     return(
         <>
             <button 
@@ -45,7 +52,7 @@ export default function Settings(){
                 <IoSettingsSharp className="size-6 text-white transition-all group-hover:rotate-180 " />
             </button>
             <Modal 
-                title="إعدادات التطبيق"
+                title="إعدادات عـــامــــــــــــة"
                 sumbitLabel="تـــــــــم"
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
@@ -63,7 +70,7 @@ export default function Settings(){
                         className="py-1 px-4 bg-comp rounded-2xl w-96 border-accent1 border"
                         onChange={e => setTitle(e.target.value)}
                         name="title"
-                        value={title}
+                        value={title ?? ""}
                         data-autofocus
                     />
                     <input 
@@ -71,21 +78,21 @@ export default function Settings(){
                         className="py-1 px-4 bg-comp rounded-2xl w-96 border-accent1 border"
                         onChange={e => setSchool(e.target.value)}
                         name="school"
-                        value={school}
+                        value={school  ?? ""}
                     />
                     <input 
                         placeholder="السنة الدراسية"
                         className="py-1 px-4 bg-comp rounded-2xl w-96 border-accent1 border"
                         onChange={e => setYear(e.target.value)}
                         name="year"
-                        value={year}
+                        value={year ?? ""}
                     />
                     <input 
                         placeholder="المدير"
                         className="py-1 px-4 bg-comp rounded-2xl w-96 border-accent1 border"
                         onChange={e => setPrincipal(e.target.value)}
                         name="principal"
-                        value={principal}
+                        value={principal ?? ""}
                     />
                     <div className="flex flex-wrap items-center">
                         {colors.map(color => (
