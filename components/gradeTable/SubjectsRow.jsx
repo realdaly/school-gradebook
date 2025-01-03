@@ -11,6 +11,13 @@ export default function SubjectsRow({subjects}){
                     {subject.title}
                 </div>
             ))}
+            {subjects?.length == 0 &&
+                <div 
+                    className="px-2 py-1 flex-auto border-r border-black/30 text-base text-center font-bold whitespace-nowrap"
+                >
+                    قائمة المواد الدراسية فارغة !
+                </div>
+            }
         </div>
     );
 }

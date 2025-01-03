@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IoSettingsSharp } from "react-icons/io5";
 import { useTheme } from "@/components/template/ConfigContext";
 import Modal from "@/components/ui/Modal";
@@ -16,8 +16,7 @@ export default function Settings(){
         setPrincipal,
         accentColor, 
         setAccentColor,
-        setIsAlert,
-        firstRun
+        setIsAlert
     } = useTheme();
 
     let [isOpen, setIsOpen] = useState(false);
@@ -35,12 +34,6 @@ export default function Settings(){
         updateConfig(title, school, year, principal, accentColor);
         setIsAlert(true);
     }
-
-    useEffect(() => {
-        if(firstRun == true){
-            setIsOpen(true);
-        }
-    }, [firstRun])
 
     return(
         <>
@@ -74,7 +67,7 @@ export default function Settings(){
                         data-autofocus
                     />
                     <input 
-                        placeholder="المدرسة"
+                        placeholder="اسم المدرسة"
                         className="py-1 px-4 bg-comp rounded-2xl w-96 border-accent1 border"
                         onChange={e => setSchool(e.target.value)}
                         name="school"
@@ -88,7 +81,7 @@ export default function Settings(){
                         value={year ?? ""}
                     />
                     <input 
-                        placeholder="المدير"
+                        placeholder="اسم مدير المدرسة"
                         className="py-1 px-4 bg-comp rounded-2xl w-96 border-accent1 border"
                         onChange={e => setPrincipal(e.target.value)}
                         name="principal"

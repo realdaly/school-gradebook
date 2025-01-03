@@ -111,6 +111,11 @@ export default function TableBody({classId, studentId, classSubjects, terms, stu
             })}
         </div>
         ))}
+        {classSubjects?.length == 0 &&
+            <div className="p-2 border-b border-r border-l border-black/30 text-center font-bold">
+                قائمة المواد الدراسية فارغة!
+            </div>
+        }
         {/* mark right click menu */}
         {markMenu && (
             <div

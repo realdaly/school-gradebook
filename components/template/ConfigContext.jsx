@@ -9,14 +9,13 @@ const ConfigContext = createContext()
 
 export const ThemeProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
-    const [firstRun, setFirstRun] = useState(false);
     const [isAlert, setIsAlert] = useState(false);
 
     // config states
     const [title, setTitle] = useState("");
-    const [school, setSchool] = useState("");
-    const [year, setYear] = useState("");
-    const [principal, setPrincipal] = useState("");
+    const [school, setSchool] = useState(null);
+    const [year, setYear] = useState(null);
+    const [principal, setPrincipal] = useState(null);
     const [accentColor, setAccentColor] = useState("accent1");
 
     let [subjects, setSubjects] = useState([]);
@@ -34,7 +33,6 @@ export const ThemeProvider = ({ children }) => {
             setPrincipal, 
             accentColor, 
             setAccentColor,
-            setFirstRun
         );
     }
 
@@ -80,8 +78,7 @@ export const ThemeProvider = ({ children }) => {
             terms,
             getTerms,
             isAlert,
-            setIsAlert,
-            firstRun,
+            setIsAlert
         }}
     >
         {children}

@@ -7,6 +7,7 @@ import DeleteStudentBtn from "@/components/gradeTable/DeleteStudentBtn";
 import DeleteCurrentMarkBtn from "./DeleteCurrentMarkBtn";
 import Link from "next/link";
 import { useTheme } from "@/components/template/ConfigContext";
+import arabicSort from "@/utils/classpage/arabicSort";
 
 export default function StudentsAndGrades({students, subjects, marks, currentTerm, getStudents, getMarks, classId, classLabel, isLiterary}){
     const { setIsAlert } = useTheme();
@@ -56,7 +57,7 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
 
     return (
         <div onClick={closeMenus}>
-            {students?.map((student, studentIndex) => (
+            {arabicSort(students)?.map((student, studentIndex) => (
                 <div
                     key={studentIndex}
                     className="flex border-x border-b border-black/30"
