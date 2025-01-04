@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import readStudents from "@/utils/classpage/readStudents";
 import CreateStudentsBtn from "@/components/classpage/CreateStudentsBtn";
 import GradeTable from "@/components/classpage/GradeTable";
-import readSubjects from "@/utils/subjects/readSubjects";
 import { useTheme } from "@/components/template/ConfigContext";
 
 export default function StudentsMarks({classId, classLabel, isLiterary}){

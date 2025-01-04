@@ -11,12 +11,13 @@ import StudentTable from "@/components/studentpage/StudentTable";
 export default function Page(){
     const [isLoading, setIsLoading] = useState(true);
     const [searchParams, setSearchParams] = useState(null);
+
     
     const classId = searchParams?.get("classid");
     const classLabel = searchParams?.get("classlabel");
     const isLiterary = searchParams?.get("isliterary");
     const studentId = searchParams?.get("studentid");
-    const studentName = searchParams?.get("studentname");
+    const [studentName, setStudentName] = useState("");
     
     const breadcrumb = (
         <>
@@ -61,6 +62,7 @@ export default function Page(){
                     classLabel={classLabel}
                     isLiterary={isLiterary}
                     studentId={studentId}
+                    setStudentName={setStudentName}
                 />
             }
         </Layout>

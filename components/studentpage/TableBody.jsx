@@ -67,7 +67,7 @@ export default function TableBody({classId, studentId, classSubjects, terms, stu
                 return(
                 <div 
                     key={gradeIndex}
-                    className="p-2 border-b border-l border-black/30 text-center w-16"
+                    className={`p-2 border-b border-l border-black/30 text-center w-16 ${markValue != "" && markValue < 50 ? "bg-danger/40" : ""}`}
                 >
                     {markValue}
                 </div>
