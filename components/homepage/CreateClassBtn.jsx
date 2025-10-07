@@ -9,7 +9,7 @@ export default function CreateClassBtn({fetchClasses}){
     const [isOpen, setIsOpen] = useState(false);
     const [className, setClassName] = useState("");
     const [classTheme, setClassTheme] = useState("theme1");
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState("scientific");
 
     const submitFunc = async () => {
         setIsOpen(false);

@@ -8,7 +8,7 @@ export default function CreateSubjectBtn({getSubjects}){
     const [isOpen, setIsOpen] = useState(false);
 
     const [subjectName, setSubjectName] = useState("");
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState("scientific");
 
     const submitFunc = async () => {
         setIsOpen(false);
