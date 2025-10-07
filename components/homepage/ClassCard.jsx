@@ -6,7 +6,7 @@ export default function ClassCard({currentClass, fetchClasses}){
     return(
         <div className="flex w-3/4 border border-opacity-25 max-w-96 h-24 bg-white rounded-xl overflow-hidden hover:scale-105 transition-all">
             <Link 
-                href={`/class?classlabel=${currentClass.title}&classid=${currentClass.id}&isliterary=${currentClass.is_literary}`}
+                href={`/class?classlabel=${currentClass.title}&classid=${currentClass.id}&category=${currentClass.category}`}
                 className="p-4 overflow-hidden w-full self-center"
             >
                 <p className={`text-2xl font-bold text-${currentClass.theme} leading-loose overflow-hidden text-ellipsis whitespace-nowrap`}>

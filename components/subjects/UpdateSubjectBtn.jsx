@@ -4,15 +4,16 @@ import { TbEditCircle } from "react-icons/tb";
 import updateSubject from "@/utils/subjects/updateSubject";
 
 export default function UpdateSubjectBtn({currentSubject, getSubjects}){
-    let [isOpen, setIsOpen] = useState(false);
-    let [subjectTitle, setSubjectTitle] = useState(currentSubject.title);
-    let [isLiterary, setIsLiterary] = useState(currentSubject.is_literary == "false" ? false : true);
+    const [isOpen, setIsOpen] = useState(false);
+    const [subjectTitle, setSubjectTitle] = useState(currentSubject.title);
+    const [category, setCategory] = useState(currentSubject.category);
 
     const submitFunc = async () => {
-        await updateSubject(subjectTitle, isLiterary, currentSubject.id);
+        await updateSubject(subjectTitle, category, currentSubject.id);
         await getSubjects();
         setIsOpen(false);
         setSubjectTitle(prev => prev);
+        setCategory("");
     }
 
     return(
@@ -46,27 +47,37 @@ export default function UpdateSubjectBtn({currentSubject, getSubjects}){
                     value={subjectTitle}
                     data-autofocus
                 />
-                {/* radio buttons for selecting "علمي" or "أدبي" */}
+                {/* radio buttons for selecting "علمي" ,"أدبي" or "متوسط" */}
                 <div className="flex items-center">
                     <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
                         <input
+                            className="cursor-pointer"
                             type="radio"
-                            name="is_literary"
-                            value="false"
-                            checked={!isLiterary}
-                            onChange={() => setIsLiterary(false)}
+                            name="category"
+                            checked={category == "scientific"}
+                            onChange={() => setCategory("scientific")}
                         />
                         علمي
                     </label>
                     <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
                         <input
+                            className="cursor-pointer"
                             type="radio"
-                            name="is_literary"
-                            value="true"
-                            checked={isLiterary}
-                            onChange={() => setIsLiterary(true)}
+                            name="category"
+                            checked={category == "literary"}
+                            onChange={() => setCategory("literary")}
                         />
                         أدبي
+                    </label>
+                    <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
+                        <input
+                            className="cursor-pointer"
+                            type="radio"
+                            name="category"
+                            checked={category == "mid"}
+                            onChange={() => setCategory("mid")}
+                        />
+                        متوسط
                     </label>
                 </div>
                 <button type="submit" hidden />

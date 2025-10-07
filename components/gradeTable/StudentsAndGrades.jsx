@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useTheme } from "@/components/template/ConfigContext";
 import arabicSort from "@/utils/classpage/arabicSort";
 
-export default function StudentsAndGrades({students, subjects, marks, currentTerm, getStudents, getMarks, classId, classLabel, isLiterary}){
+export default function StudentsAndGrades({students, subjects, marks, currentTerm, getStudents, getMarks, classId, classLabel, category}){
     const { setIsAlert } = useTheme();
     const [studentMenu, setStudentMenu] = useState(false);
     const [markMenu, setMarkMenu] = useState(false);
@@ -66,7 +66,7 @@ export default function StudentsAndGrades({students, subjects, marks, currentTer
                         {studentIndex + 1}
                     </div>
                     <Link
-                        href={`student?classlabel=${classLabel}&classid=${classId}&isliterary=${isLiterary}&studentid=${student.id}&studentname=${student.name}`}
+                        href={`student?classlabel=${classLabel}&classid=${classId}&category=${category}&studentid=${student.id}&studentname=${student.name}`}
                         title={student.name}
                         className="min-w-[195px] max-w-[195px] overflow-clip px-2 py-1 border-r border-black/30 text-right whitespace-nowrap flex-shrink-0"
                         onContextMenu={e => handleStudentMenu(e, student)}

@@ -5,7 +5,7 @@ import TableHeader from "@/components/gradeTable/TableHeader";
 import SubjectsRow from "@/components/gradeTable/SubjectsRow";
 import StudentsAndGrades from "@/components/gradeTable/StudentsAndGrades";
 
-export default function GradeTable({students, subjects, getStudents, classId, classLabel, isLiterary}){
+export default function GradeTable({students, subjects, getStudents, classId, classLabel, category}){
     const { terms, accentColor } = useTheme();
     let [marks, setMarks] = useState([]);
     let [currentTerm, setCurrentTerm] = useState(terms && terms[0]);
@@ -57,7 +57,7 @@ export default function GradeTable({students, subjects, getStudents, classId, cl
                     getMarks={getMarks}
                     classId={classId}
                     classLabel={classLabel}
-                    isLiterary={isLiterary}
+                    category={category}
                 />             
             </div>
         </div>

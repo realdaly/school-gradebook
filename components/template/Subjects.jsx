@@ -10,8 +10,9 @@ export default function Subjects(){
     const { subjects, getSubjects } = useTheme();
     let [isOpen, setIsOpen] = useState(false);
 
-    const scientificSubjects = subjects?.filter(subject => subject.is_literary == "false");
-    const literarySubjects = subjects?.filter(subject => subject.is_literary == "true");
+    const scientificSubjects = subjects?.filter(subject => subject.category == "scientific");
+    const literarySubjects = subjects?.filter(subject => subject.category == "literary");
+    const midSubjects = subjects?.filter(subject => subject.category == "mid");
 
     return(
         <>
@@ -32,6 +33,7 @@ export default function Subjects(){
                 <div className="flex items-start justify-between gap-x-10">
                     {renderSubjectsContainer("مواد العلمي", scientificSubjects, getSubjects)}
                     {renderSubjectsContainer("مواد الأدبي", literarySubjects, getSubjects)}
+                    {renderSubjectsContainer("مواد المتوسطة", midSubjects, getSubjects)}
                 </div>
                 <CreateSubjectBtn 
                     getSubjects={getSubjects}

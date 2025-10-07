@@ -4,7 +4,7 @@ import CreateStudentsBtn from "@/components/classpage/CreateStudentsBtn";
 import GradeTable from "@/components/classpage/GradeTable";
 import { useTheme } from "@/components/template/ConfigContext";
 
-export default function StudentsMarks({classId, classLabel, isLiterary}){
+export default function StudentsMarks({classId, classLabel, category}){
     const { subjects } = useTheme();
     let [classSubjects, setClassSubjects] = useState([]);
     let [students, setStudents] = useState([]);    
@@ -12,7 +12,7 @@ export default function StudentsMarks({classId, classLabel, isLiterary}){
     // filter subjects before passing them to GradeTable
     async function filterClassSubjects() {
         const filteredSubjects = subjects?.filter(
-            subject => subject.is_literary == isLiterary
+            subject => subject.category == category
         );
         setClassSubjects(filteredSubjects);
     }
@@ -35,7 +35,7 @@ export default function StudentsMarks({classId, classLabel, isLiterary}){
                 getStudents={getStudents}
                 classId={classId}
                 classLabel={classLabel}
-                isLiterary={isLiterary}
+                category={category}
             />
             <CreateStudentsBtn 
                 classId={classId}

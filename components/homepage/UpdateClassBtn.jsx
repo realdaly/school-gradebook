@@ -8,14 +8,15 @@ export default function UpdateClassBtn({currentClass, fetchClasses}){
     let [isOpen, setIsOpen] = useState(false);
     let [className, setClassName] = useState(currentClass.title);
     let [classTheme, setClassTheme] = useState(currentClass.theme);
-    let [isLiterary, setIsLiterary] = useState(currentClass.is_literary == "false" ? false : true);
+    const [category, setCategory] = useState(currentClass.category);
 
     const submitFunc = async () => {
         setIsOpen(false);
-        await updateClass(className, classTheme, isLiterary, currentClass.id);
+        await updateClass(className, classTheme, category, currentClass.id);
         await fetchClasses();
         setClassName(prev => prev);
         setClassTheme(prev => prev);
+        setCategory("");
     }
 
     return(
@@ -65,29 +66,39 @@ export default function UpdateClassBtn({currentClass, fetchClasses}){
                         </div>
                     ))}
                 </div>
-                {/* radio buttons for selecting "علمي" or "أدبي" */}
+                {/* radio buttons for selecting "علمي" ,"أدبي" or "متوسط" */}
                 <div className="flex items-center">
-                        <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
-                            <input
-                                type="radio"
-                                name="is_literary"
-                                value="false"
-                                checked={!isLiterary}
-                                onChange={() => setIsLiterary(false)}
-                            />
-                            علمي
-                        </label>
-                        <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
-                            <input
-                                type="radio"
-                                name="is_literary"
-                                value="true"
-                                checked={isLiterary}
-                                onChange={() => setIsLiterary(true)}
-                            />
-                            أدبي
-                        </label>
-                    </div>
+                    <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
+                        <input
+                            className="cursor-pointer"
+                            type="radio"
+                            name="category"
+                            checked={category == "scientific"}
+                            onChange={() => setCategory("scientific")}
+                        />
+                        علمي
+                    </label>
+                    <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
+                        <input
+                            className="cursor-pointer"
+                            type="radio"
+                            name="category"
+                            checked={category == "literary"}
+                            onChange={() => setCategory("literary")}
+                        />
+                        أدبي
+                    </label>
+                    <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
+                        <input
+                            className="cursor-pointer"
+                            type="radio"
+                            name="category"
+                            checked={category == "mid"}
+                            onChange={() => setCategory("mid")}
+                        />
+                        متوسط
+                    </label>
+                </div>
                 <button type="submit" hidden />
             </form>
         </Modal>

@@ -6,18 +6,18 @@ import Button from "@/components/ui/Button";
 import { themes } from "@/data/themes";
 
 export default function CreateClassBtn({fetchClasses}){
-    let [isOpen, setIsOpen] = useState(false);
-    let [className, setClassName] = useState("");
-    let [classTheme, setClassTheme] = useState("theme1");
-    let [isLiterary, setIsLiterary] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const [className, setClassName] = useState("");
+    const [classTheme, setClassTheme] = useState("theme1");
+    const [category, setCategory] = useState("");
 
     const submitFunc = async () => {
         setIsOpen(false);
-        await createClass(className, classTheme, isLiterary);
+        await createClass(className, classTheme, category);
         await fetchClasses();
         setClassName("");
         setClassTheme("theme1");
-        setIsLiterary(false);
+        setCategory("");
     }
 
     return(
@@ -65,29 +65,39 @@ export default function CreateClassBtn({fetchClasses}){
                         </div>
                     ))}
                 </div>
-                {/* radio buttons for selecting "علمي" or "أدبي" */}
+                {/* radio buttons for selecting "علمي" ,"أدبي" or "متوسط" */}
                 <div className="flex items-center">
-                        <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
-                            <input
-                                type="radio"
-                                name="is_literary"
-                                value="false"
-                                checked={!isLiterary}
-                                onChange={() => setIsLiterary(false)}
-                            />
-                            علمي
-                        </label>
-                        <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
-                            <input
-                                type="radio"
-                                name="is_literary"
-                                value="true"
-                                checked={isLiterary}
-                                onChange={() => setIsLiterary(true)}
-                            />
-                            أدبي
-                        </label>
-                    </div>
+                    <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
+                        <input
+                            className="cursor-pointer"
+                            type="radio"
+                            name="category"
+                            checked={category == "scientific"}
+                            onChange={() => setCategory("scientific")}
+                        />
+                        علمي
+                    </label>
+                    <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
+                        <input
+                            className="cursor-pointer"
+                            type="radio"
+                            name="category"
+                            checked={category == "literary"}
+                            onChange={() => setCategory("literary")}
+                        />
+                        أدبي
+                    </label>
+                    <label className="flex items-center gap-2 px-4 pt-2 cursor-pointer text-xl transition-all hover:opacity-75">
+                        <input
+                            className="cursor-pointer"
+                            type="radio"
+                            name="category"
+                            checked={category == "mid"}
+                            onChange={() => setCategory("mid")}
+                        />
+                        متوسط
+                    </label>
+                </div>
                 <button type="submit" hidden />
             </form>
         </Modal>

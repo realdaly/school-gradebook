@@ -22,7 +22,7 @@ export default async function initDatabase(){
             "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
             "title" VARCHAR(255) NOT NULL,
             "theme" VARCHAR(20) DEFAULT NULL,
-            "is_literary" VARCHAR(5) NOT NULL
+            "category" VARCHAR(25) NOT NULL
         );
     `);
 
@@ -31,7 +31,7 @@ export default async function initDatabase(){
         CREATE TABLE IF NOT EXISTS "subject" (
             "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
             "title" VARCHAR(255) NOT NULL,
-            "is_literary" VARCHAR(5) NOT NULL
+            "category" VARCHAR(25) NOT NULL
         );
     `);
 

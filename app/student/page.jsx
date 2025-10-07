@@ -15,14 +15,14 @@ export default function Page(){
     
     const classId = searchParams?.get("classid");
     const classLabel = searchParams?.get("classlabel");
-    const isLiterary = searchParams?.get("isliterary");
+    const category = searchParams?.get("category");
     const studentId = searchParams?.get("studentid");
     const [studentName, setStudentName] = useState("");
     
     const breadcrumb = (
         <>
             <BreadcrumbBtn 
-                href={`/class?classlabel=${classLabel}&classid=${classId}&isliterary=${isLiterary}`} 
+                href={`/class?classlabel=${classLabel}&classid=${classId}&category=${category}`} 
                 label={classLabel} 
             />
             <IoMdArrowDropleft />
@@ -60,7 +60,7 @@ export default function Page(){
                 <StudentTable
                     classId={classId}
                     classLabel={classLabel}
-                    isLiterary={isLiterary}
+                    category={category}
                     studentId={studentId}
                     setStudentName={setStudentName}
                 />

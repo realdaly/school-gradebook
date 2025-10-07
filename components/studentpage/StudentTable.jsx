@@ -10,7 +10,7 @@ import readStudents from "@/utils/classpage/readStudents";
 import Button from "@/components/ui/Button";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
-export default function StudentTable({ classId, classLabel, isLiterary, setStudentName, studentId: defaultStudentId }) {
+export default function StudentTable({ classId, classLabel, category, setStudentName, studentId: defaultStudentId }) {
   const { subjects, terms } = useTheme();
 
   const [studentId, setStudentId] = useState(defaultStudentId); // State for current student ID
@@ -24,10 +24,10 @@ export default function StudentTable({ classId, classLabel, isLiterary, setStude
   const [emptyAllMenu, setEmptyAllMenu] = useState(false);
   const [studentInfoMenu, setStudentInfoMenu] = useState(false);
 
-  // Fetch class subjects based on the isLiterary flag
+  // Fetch class subjects based on the category
   async function getClassSubjects() {
     const filteredSubjects = subjects?.filter(
-      (subject) => subject.is_literary == isLiterary
+      (subject) => subject.category == category
     );
     setClassSubjects(filteredSubjects);
   }
